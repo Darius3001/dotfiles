@@ -1,0 +1,9 @@
+{
+  "layer": "bottom",
+  "position": "top",
+  "height": 24,
+  "spacing": 5,
+  "modules-left": ["hyprland/workspaces", "hyprland/submap"],
+  "modules-center": ["hyprland/window"],
+  "modules-right": ["cpu","memory","battery","pulseaudio","clock","tray"]
+}
