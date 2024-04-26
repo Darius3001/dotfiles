@@ -41,7 +41,6 @@ smart_borders on
 
 for_window [class="^.*"] border pixel 1
 
-gaps inner 4px
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
