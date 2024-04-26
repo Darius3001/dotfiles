@@ -41,6 +41,7 @@ smart_borders on
 
 for_window [class="^.*"] border pixel 1
 
+exec polybar
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -54,7 +55,6 @@ floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
 
 
 # start a terminal
