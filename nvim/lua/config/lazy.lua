@@ -45,3 +45,5 @@ require("lazy").setup({
         },
     },
 })
+
+vim.cmd 'colorscheme darcula-solid'
