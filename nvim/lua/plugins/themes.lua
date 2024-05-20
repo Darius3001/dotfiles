@@ -13,4 +13,5 @@ return {
             "vermdeep/darcula_dark.nvim",
         },
     },
+    { "briones-gabriel/darcula-solid.nvim" },
 }
