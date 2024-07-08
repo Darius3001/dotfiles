@@ -6,6 +6,6 @@ vim.api.nvim_set_keymap("n", "{", "<cmd>BufferLineCyclePrev<cr>", { noremap = tr
 vim.api.nvim_set_keymap("n", "}", "<cmd>BufferLineCycleNext<cr>", { noremap = true })
 
 for i = 1, 9 do
-  vim.api.nvim_set_keymap("n", "<M-" .. i .. ">", "<cmd>BufferLineGoToBuffer " .. i .. "<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<C-" .. i .. ">", "<cmd>BufferLineGoToBuffer " .. i .. "<CR>", { noremap = true, silent = true })
 end
 
