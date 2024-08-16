@@ -20,7 +20,28 @@ return {
                         "vue",
                     },
                 },
+                tsserver = {
+                    "typescript",
+                    "typescriptreact",
+                    "typescript.tsx",
+                },
             },
+        },
+    },
+    {
+        "jose-elias-alvarez/null-ls.nvim",
+    },
+    {
+        "MunifTanjim/prettier.nvim",
+        filetypes = {
+            "css",
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "json",
+            "scss",
+            "less",
         },
     },
 }
