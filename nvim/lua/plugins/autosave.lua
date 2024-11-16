@@ -1,3 +1,6 @@
 return {
-    { "pocco81/AutoSave.nvim", enabled = true },
+    {
+        "pocco81/AutoSave.nvim",
+        enabled = true,
+    },
 }
