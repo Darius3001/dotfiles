@@ -44,7 +44,7 @@ for_window [class="^.*"] border pixel 1
 exec polybar
 
 exec setxkbmap -layout us,de
-exec setxkbmap -option 'grp:win_space_toggle'
+bindsym $mod+Shift+m exec xkb-switch -n
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
