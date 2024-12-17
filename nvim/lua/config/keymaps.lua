@@ -5,10 +5,6 @@
 vim.api.nvim_set_keymap("n", "{", "<cmd>BufferLineCyclePrev<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "}", "<cmd>BufferLineCycleNext<cr>", { noremap = true })
 
-for i = 1, 9 do
-  vim.api.nvim_set_keymap("n", "<C-" .. i .. ">", "<cmd>BufferLineGoToBuffer " .. i .. "<CR>", { noremap = true, silent = true })
-end
-
 function move_text_up()
   vim.cmd("'<,'>m '<-2")
   vim.cmd("normal! gv")
