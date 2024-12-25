@@ -2,12 +2,12 @@
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
+    color: #eee;
 }
 
 window#waybar {
-    background-color: #101124;
+    background-color: #111111;
     /*border-bottom: 3px solid rgba(137, 61, 75, 0.5);*/
-    color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -45,26 +45,27 @@ button {
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
     background: inherit;
-    box-shadow: inset 0 -3px #ffffff;
 }
 
 #workspaces button {
     padding: 0 5px;
     background-color: transparent;
-    color: #ffffff;
+    transition: all 0.5s ease;
+    border-radius: 5px;
+    margin: 2px;
+    padding: 6px;
 }
 
 #workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: #333;
 }
 
-#workspaces button.focused {
-    background-color: #64727D;
-    box-shadow: inset 0 -3px #ffffff;
+#workspaces button.active {
+    background: #444;
 }
 
-#workspaces button.urgent {
-    background-color: #eb4d4b;
+#workspaces button.visible {
+  
 }
 
 #mode {
