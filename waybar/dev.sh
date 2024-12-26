@@ -4,7 +4,7 @@ WATCH_DIR="$HOME/dotfiles/waybar/"
 
 on_change() {
   pkill waybar 
-  waybar &
+  hyprctl dispatch exec waybar
 }
 
 inotifywait -m -e modify,create,delete,move "$WATCH_DIR" --format '%w%f' |
