@@ -1,4 +1,5 @@
 return {
+    { "towolf/vim-helm" },
     {
         "neovim/nvim-lspconfig",
         ---@class PluginLspOpts
@@ -24,6 +25,9 @@ return {
                     "typescript",
                     "typescriptreact",
                     "typescript.tsx",
+                },
+                gopls = {
+                    filetypes = { "go", "gomod", "gowork", "gotmpl" },
                 },
             },
         },
