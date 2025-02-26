@@ -4,6 +4,8 @@ vim.g.maplocalleader = "\\"
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
+vim.cmd("highlight EndOfBuffer guifg=bg")
+vim.opt.clipboard = "unnamedplus"
 
 vim.wo.relativenumber = true
 vim.wo.number = true
@@ -14,6 +16,7 @@ vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
 
+vim.keymap.set('n', '<Leader>qq', '<cmd>quitall<cr>')
 
 local ensure_lazy = function()
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
