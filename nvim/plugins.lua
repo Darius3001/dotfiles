@@ -24,7 +24,7 @@ require("lazy").setup({
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
     { "nvim-treesitter/nvim-treesitter" },
-    { "folke/neodev.nvim", opts = {} },
+    { "folke/neodev.nvim",                opts = {} },
     {
       'nvim-telescope/telescope.nvim',
       tag = '0.1.8',
@@ -44,7 +44,17 @@ require("lazy").setup({
           position = "current"
         }
       }
-    }
+    },
+    { 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
+    {
+      "https://git.sr.ht/~nedia/auto-save.nvim",
+      event = { "BufReadPre" },
+      opts = {
+        events = { 'InsertLeave', 'TextChanged', 'BufLeave' },
+        silent = false,
+        exclude_ft = { 'neo-tree' },
+      },
+    },
   }
 })
 
@@ -74,3 +84,4 @@ require("telescope").setup {
   },
 }
 
+require("bufferline").setup {}
