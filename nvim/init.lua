@@ -7,29 +7,34 @@ vim.opt.expandtab = true
 
 vim.keymap.set('n', '<Leader>e', '<cmd>Explore<cr>')
 
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
+local ensure_lazy = function()
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+      vim.api.nvim_echo({
+        { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+        { out,                            "WarningMsg" },
+        { "\nPress any key to exit..." },
+      }, true, {})
+      vim.fn.getchar()
+      os.exit(1)
+    end
   end
+  vim.opt.rtp:prepend(lazypath)
 end
 
-ensure_packer()
+ensure_lazy()
 
-local packer = require("packer")
-packer.startup(function(use)
-  use 'wbthomason/packer.nvim'
-  use 'neovim/nvim-lspconfig'
-  use 'williamboman/mason.nvim'
-
-  packer.install()
-end)
+require("lazy").setup({
+  spec = {
+    { "neovim/nvim-lspconfig" },
+    { "williamboman/mason.nvim" },
+  }
+})
 
 require("lspconfig").lua_ls.setup({})
 
 require("mason").setup({})
 
---{ "neovim/nvim-lspconfig" },
---{ "williamboman/mason.nvim" },
