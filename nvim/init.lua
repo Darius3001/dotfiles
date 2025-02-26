@@ -6,9 +6,14 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 vim.wo.relativenumber = true
+vim.wo.number = true
 
-vim.keymap.set('n', '<Leader>e', '<cmd>Explore<cr>')
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
+
 
 local ensure_lazy = function()
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -36,6 +41,27 @@ require("lazy").setup({
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
     { "nvim-treesitter/nvim-treesitter" },
+    { "folke/neodev.nvim", opts = {} },
+    {
+      'nvim-telescope/telescope.nvim',
+      tag = '0.1.8',
+      dependencies = { 'nvim-lua/plenary.nvim' }
+    },
+    {
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v3.x",
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+        "MunifTanjim/nui.nvim",
+        -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+      },
+      config = {
+        window = {
+          position = "current"
+        }
+      }
+    }
   }
 })
 
@@ -49,7 +75,21 @@ require("mason-lspconfig").setup({
     function(server_name)
       lspconfig[server_name].setup({})
     end
-  }
+  },
+  automatic_installation = true
 })
 
-require('nvim-treesitter.install').ensure_installed = "all"
+require('nvim-treesitter.configs').setup {
+  auto_install = true,
+}
+
+require("telescope").setup {
+  pickers = {
+    find_files = {
+      find_command = { 'rg', '--files', '--no-ignore' }
+    },
+  },
+}
+
+vim.keymap.set("n", "<Leader>e", "<cmd>Neotree toggle<CR>")
+vim.keymap.set("n", "<Leader><Leader>", "<cmd>Telescope find_files<CR>")
