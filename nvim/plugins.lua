@@ -20,51 +20,7 @@ ensure_lazy()
 
 require("lazy").setup({
   spec = {
-    { "neovim/nvim-lspconfig" },
-    { "williamboman/mason.nvim" },
-    { "williamboman/mason-lspconfig.nvim" },
-    { "nvim-treesitter/nvim-treesitter" },
-    { "folke/neodev.nvim",                opts = {} },
-    {
-      'nvim-telescope/telescope.nvim',
-      tag = '0.1.8',
-      dependencies = { 'nvim-lua/plenary.nvim' }
-    },
-    {
-      "nvim-neo-tree/neo-tree.nvim",
-      branch = "v3.x",
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-        "MunifTanjim/nui.nvim",
-        -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
-      },
-      config = {
-        window = {
-          position = "float",
-          popup = {
-            size = { height = "80%", width = "90%" },
-            position = "50%",
-          }
-        },
-        popup_border_style = "rounded"
-      }
-    },
-    { 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
-    {
-      "https://git.sr.ht/~nedia/auto-save.nvim",
-      event = { "BufReadPre" },
-      opts = {
-        events = { 'InsertLeave', 'TextChanged', 'BufLeave' },
-        silent = false,
-        exclude_ft = { 'neo-tree' },
-      },
-    },
-    {
-      "catppuccin/nvim",
-      name = "catppuccin",
-      priority = 1000
-    },
+    { import = "plugins" },
     {
       "kdheepak/lazygit.nvim",
       requires = {
