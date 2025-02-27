@@ -17,3 +17,6 @@ vim.keymap.set("n", "<Leader>cf", vim.lsp.buf.format)
 
 vim.keymap.set("n", "H", "<cmd>bprevious<cr>")
 vim.keymap.set("n", "L", "<cmd>bnext<cr>")
+vim.keymap.set("n", "<Leader>bd", "<cmd>bd<cr>")
+
+vim.keymap.set("n", "<Leader>gg", "<cmd>LazyGit<cr>")
