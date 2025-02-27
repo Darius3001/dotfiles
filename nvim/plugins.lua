@@ -41,8 +41,13 @@ require("lazy").setup({
       },
       config = {
         window = {
-          position = "current"
-        }
+          position = "float",
+          popup = {
+            size = { height = "80%", width = "90%" },
+            position = "50%",
+          }
+        },
+        popup_border_style = "rounded"
       }
     },
     { 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
@@ -55,6 +60,11 @@ require("lazy").setup({
         exclude_ft = { 'neo-tree' },
       },
     },
+    {
+      "catppuccin/nvim",
+      name = "catppuccin",
+      priority = 1000
+    }
   }
 })
 
