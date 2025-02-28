@@ -29,5 +29,5 @@ vim.keymap.set("n", "<Leader>br", "<cmd>BufferLineCloseRight<cr>")
 vim.keymap.set("n", "<Leader>bo", "<cmd>BufferLineCloseOthers<cr>")
 
 vim.keymap.set("n", "<Leader>gg", "<cmd>LazyGit<cr>")
-vim.keymap.set("n", "<Leader>ghp", "<cmd>Gitsigns preview_hunk_inline<cr>")
-vim.keymap.set("n", "<Leader>ghb", "<cmd>Gitsigns blame<cr>")
+vim.keymap.set("n", "<Leader>gp", "<cmd>Gitsigns preview_hunk_inline<cr>")
+vim.keymap.set("n", "<Leader>gb", "<cmd>Gitsigns blame<cr>")
