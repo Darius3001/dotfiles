@@ -14,9 +14,14 @@ vim.keymap.set("n", "<Leader>/", "<cmd>Telescope live_grep<CR>")
 vim.keymap.set("n", "<Leader>l", "<cmd>Lazy<CR>")
 
 vim.keymap.set("n", "<Leader>cf", vim.lsp.buf.format)
+vim.keymap.set("n", "<Leader>cm", "<cmd>Mason<cr>")
 
-vim.keymap.set("n", "H", "<cmd>bprevious<cr>")
+
+vim.keymap.set("n", "H", "<cmd>bprev<cr>")
 vim.keymap.set("n", "L", "<cmd>bnext<cr>")
 vim.keymap.set("n", "<Leader>bd", "<cmd>bd<cr>")
+vim.keymap.set("n", "<Leader>bl", "<cmd>BufferLineCloseLeft<cr>")
+vim.keymap.set("n", "<Leader>br", "<cmd>BufferLineCloseRight<cr>")
+vim.keymap.set("n", "<Leader>bo", "<cmd>BufferLineCloseOthers<cr>")
 
 vim.keymap.set("n", "<Leader>gg", "<cmd>LazyGit<cr>")

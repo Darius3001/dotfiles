@@ -1,5 +1,12 @@
 return {
-  { 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    init = function()
+      require("bufferline").setup {}
+    end
+  },
   {
     "https://git.sr.ht/~nedia/auto-save.nvim",
     event = { "BufReadPre" },

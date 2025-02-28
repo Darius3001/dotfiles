@@ -27,36 +27,8 @@ require("lazy").setup({
         "nvim-lua/plenary.nvim",
       },
       init = function()
-        vim.g.lazygit_floating_window_border_chars = {' ',' ', ' ', ' ', ' ',' ', ' ', ' '}
+        vim.g.lazygit_floating_window_border_chars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
       end
     }
   }
 })
-
-local lspconfig = require("lspconfig")
-
-require("mason").setup()
-
-require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls" },
-  handlers = {
-    function(server_name)
-      lspconfig[server_name].setup({})
-    end
-  },
-  automatic_installation = true
-})
-
-require('nvim-treesitter.configs').setup {
-  auto_install = true,
-}
-
-require("telescope").setup {
-  pickers = {
-    find_files = {
-      find_command = { 'rg', '--files', '--no-ignore' }
-    },
-  },
-}
-
-require("bufferline").setup {}
