@@ -1,7 +1,7 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    init = function()
+    config = function()
       vim.diagnostic.config({
         virtual_text = true,
         signs = false,
@@ -12,14 +12,14 @@ return {
   },
   {
     "williamboman/mason.nvim",
-    init = function()
+    config = function()
       require("mason").setup()
     end
   },
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
-    init = function()
+    config = function()
       local lspconfig = require("lspconfig")
 
       require("mason-lspconfig").setup({
@@ -35,7 +35,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    init = function()
+    config = function()
       require('nvim-treesitter.configs').setup {
         auto_install = true,
       }
