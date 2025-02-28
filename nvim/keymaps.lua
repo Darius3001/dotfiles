@@ -1,4 +1,3 @@
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
@@ -13,8 +12,12 @@ vim.keymap.set("n", "<Leader>/", "<cmd>Telescope live_grep<CR>")
 
 vim.keymap.set("n", "<Leader>l", "<cmd>Lazy<CR>")
 
-vim.keymap.set("n", "<Leader>cf", vim.lsp.buf.format)
 vim.keymap.set("n", "<Leader>cm", "<cmd>Mason<cr>")
+vim.keymap.set("n", "<Leader>cf", vim.lsp.buf.format)
+vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action)
+vim.keymap.set("n", "<Leader>cr", vim.lsp.buf.rename)
+vim.keymap.set("n", "K", vim.lsp.buf.hover)
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 
 
 vim.keymap.set("n", "H", "<cmd>bprev<cr>")

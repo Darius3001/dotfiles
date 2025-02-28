@@ -5,7 +5,17 @@ return {
       require('gitsigns').setup({
         current_line_blame = true
       })
-    end
+    end,
+    opts = {
+      signs = {
+        delete    = { text = "" },
+        topdelete = { text = "" },
+      },
+      signs_staged = {
+        delete = { text = "" },
+        topdelete = { text = "" },
+      },
+    },
   },
   {
     "kdheepak/lazygit.nvim",
