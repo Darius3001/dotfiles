@@ -21,14 +21,11 @@ ensure_lazy()
 require("lazy").setup({
   spec = {
     { import = "plugins" },
-    {
-      "kdheepak/lazygit.nvim",
-      requires = {
-        "nvim-lua/plenary.nvim",
-      },
-      init = function()
-        vim.g.lazygit_floating_window_border_chars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
-      end
-    }
-  }
+  },
+  change_detection = {
+    -- automatically check for config file changes and reload the ui
+    enabled = false,
+    notify = false,   -- get a notification when changes are found
+  },
+  install = { colorscheme = { "catpucchin" } },
 })

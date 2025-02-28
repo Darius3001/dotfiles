@@ -1,5 +1,15 @@
 return {
-  { "neovim/nvim-lspconfig" },
+  {
+    "neovim/nvim-lspconfig",
+    init = function()
+      vim.diagnostic.config({
+        virtual_text = true,
+        signs = false,
+        underline = true,
+        update_in_insert = false,
+      })
+    end
+  },
   {
     "williamboman/mason.nvim",
     init = function()
@@ -8,6 +18,7 @@ return {
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
     init = function()
       local lspconfig = require("lspconfig")
 
