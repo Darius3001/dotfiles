@@ -1,3 +1,20 @@
+local ctoggle = function()
+  local qf_is_open = false
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "buftype") == "quickfix" then
+      qf_is_open = true
+      break
+    end
+  end
+
+  if qf_is_open then
+    vim.cmd("cclose")
+  else
+    vim.cmd("copen")
+  end
+end
+
+
 vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
@@ -20,6 +37,10 @@ vim.keymap.set("n", "<Leader>cr", vim.lsp.buf.rename)
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 
+vim.keymap.set("n", "<Leader>cq", ctoggle)
+vim.keymap.set("n", "<Leader>cn", "<cmd>cn<cr>")
+vim.keymap.set("n", "<Leader>cp", "<cmd>cp<cr>")
+vim.keymap.set("n", "<Leader>cg", ":grep ")
 
 vim.keymap.set("n", "H", "<cmd>bprev<cr>")
 vim.keymap.set("n", "L", "<cmd>bnext<cr>")
