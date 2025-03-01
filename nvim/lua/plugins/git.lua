@@ -3,19 +3,18 @@ return {
     "lewis6991/gitsigns.nvim",
     config = function()
       require('gitsigns').setup({
-        current_line_blame = true
+        current_line_blame = true,
+        signs = {
+          delete    = { text = "" },
+          topdelete = { text = "" },
+        },
+        signs_staged = {
+          delete = { text = "" },
+          topdelete = { text = "" },
+        },
+
       })
     end,
-    opts = {
-      signs = {
-        delete    = { text = "" },
-        topdelete = { text = "" },
-      },
-      signs_staged = {
-        delete = { text = "" },
-        topdelete = { text = "" },
-      },
-    },
   },
   {
     "kdheepak/lazygit.nvim",
