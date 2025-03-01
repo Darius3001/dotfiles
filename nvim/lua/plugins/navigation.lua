@@ -7,9 +7,14 @@ return {
       require("telescope").setup {
         pickers = {
           find_files = {
-            find_command = { 'rg', '--files', '--no-ignore' }
+            hidden = true,
           },
         },
+        defaults = {
+          file_ignore_patterns = {
+            "node_modules", "build", ".git"
+          },
+        }
       }
     end
   },

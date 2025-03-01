@@ -24,5 +24,6 @@ return {
     config = function()
       vim.g.lazygit_floating_window_border_chars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
     end
-  }
+  },
+  { 'akinsho/git-conflict.nvim', version = "*", config = true }
 }
