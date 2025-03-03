@@ -12,7 +12,7 @@ return {
         },
         defaults = {
           file_ignore_patterns = {
-            "node_modules", "build", ".git"
+            "node_modules/", "build/", "%.git/"
           },
         }
       }
