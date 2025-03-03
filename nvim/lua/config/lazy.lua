@@ -21,11 +21,22 @@ ensure_lazy()
 require("lazy").setup({
   spec = {
     { import = "plugins" },
+    {
+      "folke/lazydev.nvim",
+      ft = "lua", -- only load on lua files
+      opts = {
+        library = {
+          -- See the configuration section for more details
+          -- Load luvit types when the `vim.uv` word is found
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        },
+      },
+    },
   },
   change_detection = {
     -- automatically check for config file changes and reload the ui
     enabled = false,
-    notify = false,   -- get a notification when changes are found
+    notify = false, -- get a notification when changes are found
   },
   install = { colorscheme = { "catpucchin" } },
 })
