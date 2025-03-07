@@ -14,6 +14,8 @@ vim.wo.number = true
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
 vim.opt.undofile = true
 
+vim.opt.ignorecase = true
+
 -- Start telescope at entry
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
