@@ -25,6 +25,7 @@ vim.keymap.set('n', '<Leader>qq', '<cmd>quitall<cr>')
 vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<cr>")
 
 vim.keymap.set("n", "<Leader>e", "<cmd>Neotree toggle<CR>")
+vim.keymap.set("n", "<Leader>E", "<cmd>Neotree reveal<CR>")
 vim.keymap.set("n", "<Leader><Leader>", "<cmd>Telescope find_files<CR>")
 vim.keymap.set("n", "<Leader>/", "<cmd>Telescope live_grep<CR>")
 
@@ -37,6 +38,7 @@ vim.keymap.set("n", "<Leader>cr", vim.lsp.buf.rename)
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 vim.keymap.set('n', 'gr', vim.lsp.buf.references)
+vim.keymap.set('n', 'gi', vim.lsp.buf.implementation)
 
 vim.keymap.set("n", "<Leader>cl", ctoggle)
 vim.keymap.set("n", "<Leader>cn", "<cmd>cn<cr>")
