@@ -20,7 +20,8 @@ vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
 
-vim.keymap.set('n', '<Leader>qq', '<cmd>quitall<cr>')
+vim.keymap.set('n', '<Leader>qq', vim.cmd.quitall)
+vim.keymap.set('n', '<Leader><esc><esc>', vim.cmd.quitall)
 
 vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<cr>")
 
@@ -29,22 +30,26 @@ vim.keymap.set("n", "<Leader>E", "<cmd>Neotree reveal<CR>")
 vim.keymap.set("n", "<Leader><Leader>", "<cmd>Telescope find_files<CR>")
 vim.keymap.set("n", "<Leader>/", "<cmd>Telescope live_grep<CR>")
 
-vim.keymap.set("n", "<Leader>l", "<cmd>Lazy<CR>")
+vim.keymap.set("n", "<Leader>L", "<cmd>Lazy<CR>")
+vim.keymap.set("n", "<Leader>u", vim.cmd.UndotreeToggle)
 
-vim.keymap.set("n", "<Leader>cm", "<cmd>Mason<cr>")
-vim.keymap.set("n", "<Leader>cf", vim.lsp.buf.format)
-vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action)
-vim.keymap.set("n", "<Leader>cr", vim.lsp.buf.rename)
+-- LSP
+vim.keymap.set("n", "<Leader>lm", "<cmd>Mason<cr>")
+vim.keymap.set("n", "<Leader>lf", vim.lsp.buf.format)
+vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action)
+vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename)
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 vim.keymap.set('n', 'gr', vim.lsp.buf.references)
 vim.keymap.set('n', 'gi', vim.lsp.buf.implementation)
 
+-- Quickfix
 vim.keymap.set("n", "<Leader>cl", ctoggle)
 vim.keymap.set("n", "<Leader>cn", "<cmd>cn<cr>")
 vim.keymap.set("n", "<Leader>cp", "<cmd>cp<cr>")
 vim.keymap.set("n", "<Leader>cg", ":grep ")
 
+-- Buffers
 vim.keymap.set("n", "H", "<cmd>bprev<cr>")
 vim.keymap.set("n", "L", "<cmd>bnext<cr>")
 vim.keymap.set("n", "<Leader>bd", "<cmd>bd<cr>")
@@ -52,15 +57,21 @@ vim.keymap.set("n", "<Leader>bl", "<cmd>BufferLineCloseLeft<cr>")
 vim.keymap.set("n", "<Leader>br", "<cmd>BufferLineCloseRight<cr>")
 vim.keymap.set("n", "<Leader>bo", "<cmd>BufferLineCloseOthers<cr>")
 
+--- Git
+---
 vim.keymap.set("n", "<Leader>gg", "<cmd>LazyGit<cr>")
-vim.keymap.set("n", "<Leader>gp", "<cmd>Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "<Leader>gb", "<cmd>Gitsigns blame<cr>")
+
+-- Hunks
+vim.keymap.set("n", "<Leader>gp", "<cmd>Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "<Leader>ghr", "<cmd>Gitsigns reset_hunk<cr>")
+vim.keymap.set("n", "<Leader>ghs", "<cmd>Gitsigns stage_hunk<cr>")
+vim.keymap.set("n", "<Leader>ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
+
+-- Conflicts
 vim.keymap.set("n", "<Leader>gco", vim.cmd.GitConflictChooseOurs)
 vim.keymap.set("n", "<Leader>gct", vim.cmd.GitConflictChooseTheirs)
 vim.keymap.set("n", "<Leader>gcn", vim.cmd.GitConflictChooseNone)
 vim.keymap.set("n", "<Leader>gcb", vim.cmd.GitConflictChooseBoth)
 vim.keymap.set("n", "<Leader>gcl", vim.cmd.GitConflictListQf)
 vim.keymap.set("n", "<Leader>gcr", vim.cmd.GitConflictRefresh)
-
-vim.keymap.set("n", "<Leader>u", vim.cmd.UndotreeToggle)
