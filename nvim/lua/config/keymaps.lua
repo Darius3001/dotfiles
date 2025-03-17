@@ -14,6 +14,11 @@ local ctoggle = function()
   end
 end
 
+local on_lsp_list = function(options)
+  vim.fn.setqflist({}, ' ', options)
+  vim.cmd.cfirst()
+end
+
 
 vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
@@ -38,9 +43,9 @@ vim.keymap.set("n", "<Leader>lf", vim.lsp.buf.format)
 vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename)
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
-vim.keymap.set('n', 'gr', vim.lsp.buf.references)
-vim.keymap.set('n', 'gi', vim.lsp.buf.implementation)
+vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition({ on_list = on_lsp_list }) end)
+vim.keymap.set('n', 'gr', function() vim.lsp.buf.references(nil, { on_list = on_lsp_list }) end)
+vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation({ on_list = on_lsp_list }) end)
 
 -- Quickfix
 vim.keymap.set("n", "<Leader>cl", ctoggle)
