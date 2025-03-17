@@ -1,23 +1,9 @@
-local ctoggle = function()
-  local qf_is_open = false
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "buftype") == "quickfix" then
-      qf_is_open = true
-      break
-    end
-  end
-
-  if qf_is_open then
-    vim.cmd("cclose")
-  else
-    vim.cmd("copen")
-  end
-end
-
 local on_lsp_list = function(options)
   vim.fn.setqflist({}, ' ', options)
   vim.cmd.cfirst()
 end
+
+local util = require("util")
 
 
 vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
@@ -42,13 +28,15 @@ vim.keymap.set("n", "<Leader>lm", "<cmd>Mason<cr>")
 vim.keymap.set("n", "<Leader>lf", vim.lsp.buf.format)
 vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename)
+vim.keymap.set("n", "<Leader>ld", util.print_diagnostics)
+
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition({ on_list = on_lsp_list }) end)
 vim.keymap.set('n', 'gr', function() vim.lsp.buf.references(nil, { on_list = on_lsp_list }) end)
 vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation({ on_list = on_lsp_list }) end)
 
 -- Quickfix
-vim.keymap.set("n", "<Leader>cl", ctoggle)
+vim.keymap.set("n", "<Leader>cl", util.ctoggle)
 vim.keymap.set("n", "<Leader>cn", "<cmd>cn<cr>")
 vim.keymap.set("n", "<Leader>cp", "<cmd>cp<cr>")
 vim.keymap.set("n", "<Leader>cg", ":grep ")
