@@ -21,7 +21,6 @@ vim.keymap.set('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
 
 vim.keymap.set('n', '<Leader>qq', vim.cmd.quitall)
-vim.keymap.set('n', '<Leader><esc><esc>', vim.cmd.quitall)
 
 vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<cr>")
 
