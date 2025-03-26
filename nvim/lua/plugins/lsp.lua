@@ -23,7 +23,7 @@ return {
       local lspconfig = require("lspconfig")
 
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls" },
+        ensure_installed = { "lua_ls", "pyright" },
         handlers = {
           function(server_name)
             lspconfig[server_name].setup({})
@@ -47,7 +47,7 @@ return {
   { "towolf/vim-helm" },
   {
     "nvimtools/none-ls.nvim",
-    config = function ()
+    config = function()
       local null_ls = require("null-ls")
       null_ls.setup({
         sources = {
