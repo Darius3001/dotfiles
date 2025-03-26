@@ -40,4 +40,24 @@ function M.print_diagnostics()
     vim.notify(table.concat(messages, "\n"), vim.log.levels.ERROR)
 end
 
+function M.move_text_up()
+  vim.cmd("'<,'>m '<-2")
+  vim.cmd("normal! gv")
+end
+
+function M.move_text_down()
+  vim.cmd("'<,'>m '>+1")
+  vim.cmd("normal! gv")
+end
+
+function M.move_text_right()
+  vim.cmd("'<,'>normal! >>")
+  vim.cmd("normal! gv")
+end
+
+function M.move_text_left()
+  vim.cmd("'<,'>normal! <<")
+  vim.cmd("normal! gv")
+end
+
 return M
