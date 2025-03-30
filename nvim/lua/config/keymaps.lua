@@ -39,6 +39,8 @@ vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition({ on_list = on_lsp_l
 vim.keymap.set('n', 'gr', function() vim.lsp.buf.references(nil, { on_list = on_lsp_list }) end)
 vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation({ on_list = on_lsp_list }) end)
 
+vim.keymap.set('n', '<Leader>a', '<cmd>AerialToggle<cr>')
+
 -- Quickfix
 vim.keymap.set("n", "<Leader>cl", util.ctoggle)
 vim.keymap.set("n", "<Leader>cn", "<cmd>cn<cr>")
