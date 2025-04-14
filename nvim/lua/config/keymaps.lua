@@ -25,6 +25,8 @@ vim.keymap.set("n", "<Leader>/", "<cmd>Telescope live_grep<CR>")
 vim.keymap.set("n", "<Leader>L", "<cmd>Lazy<CR>")
 vim.keymap.set("n", "<Leader>u", vim.cmd.UndotreeToggle)
 
+vim.keymap.set("t", "<esc><esc>",  "<C-\\><C-n>")
+
 -- LSP
 vim.keymap.set("n", "<Leader>lm", "<cmd>Mason<cr>")
 vim.keymap.set("n", "<Leader>lf", vim.lsp.buf.format)
