@@ -7,8 +7,8 @@
 * {
     font:   "FiraCode Nerd Font Medium 12";
 
-    bg0:     #2E3440;
-    bg1:     #3B4252;
+    bg0:     #101015;
+    bg1:     #101015;
     fg0:     #D8DEE9;
 
     accent-color:     #8D73EB;
