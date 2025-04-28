@@ -45,8 +45,8 @@ vim.keymap.set('n', '<Leader>a', '<cmd>AerialToggle<cr>')
 
 -- Quickfix
 vim.keymap.set("n", "<Leader>cl", util.ctoggle)
-vim.keymap.set("n", "<c-.>", "<cmd>cn<cr>")
-vim.keymap.set("n", "<c-,>", "<cmd>cp<cr>")
+vim.keymap.set("n", "<Leader>n", "<cmd>cn<cr>")
+vim.keymap.set("n", "<Leader>p", "<cmd>cp<cr>")
 vim.keymap.set("n", "<Leader>cg", ":grep ")
 
 -- Buffers
