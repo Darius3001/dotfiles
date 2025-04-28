@@ -41,5 +41,20 @@ return {
         -- Configuration here, or leave empty to use defaults
       })
     end
+  },
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "mfussenegger/nvim-dap-python",
+      "rcarriga/nvim-dap-ui", -- Optional: UI for dap
+      "nvim-neotest/nvim-nio"
+    },
+    config = function()
+      require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
+      require("dapui").setup()
+    end
+  },
+  {
+    "rcarriga/nvim-dap-ui"
   }
 }
