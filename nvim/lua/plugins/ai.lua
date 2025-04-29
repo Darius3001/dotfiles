@@ -1,6 +1,20 @@
 return {
   {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    enabled = false,
+    dependencies = {
+      { "github/copilot.vim" },                       -- or zbirenbaum/copilot.lua
+      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+    },
+    build = "make tiktoken",                          -- Only on MacOS or Linux
+    opts = {
+      -- See Configuration section for options
+    },
+    -- See Commands section for default commands if you want to lazy load on them
+  },
+  {
     "yetone/avante.nvim",
+    enabled = false,
     event = "VeryLazy",
     version = false, -- Never set this value to "*"! Never!
     opts = {
@@ -11,6 +25,9 @@ return {
       ollama = {
         host = "http://localhost:11434",
         model = "mistral",
+        options = {
+          stream = true, -- THIS IS CRITICAL
+        }
       },
       openai = {
         endpoint = "https://api.openai.com/v1",
