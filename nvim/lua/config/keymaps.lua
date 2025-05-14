@@ -25,7 +25,31 @@ vim.keymap.set("n", "<Leader>/", "<cmd>Telescope live_grep<CR>")
 vim.keymap.set("n", "<Leader>L", "<cmd>Lazy<CR>")
 vim.keymap.set("n", "<Leader>u", vim.cmd.UndotreeToggle)
 
-vim.keymap.set("t", "<esc><esc>",  "<C-\\><C-n>")
+-- Adding <esc><esc> shortcut for terminal bufs (except lazygit)
+
+local terminal_group = vim.api.nvim_create_augroup('TerminalGroup', { clear = true })
+
+local function enable_terminal_mappings()
+  local current_bufnr = vim.api.nvim_get_current_buf()
+
+  local buftype = vim.api.nvim_buf_get_option(current_bufnr, 'buftype')
+  if buftype ~= 'terminal' then
+    return
+  end
+
+  local bufname = vim.api.nvim_buf_get_name(current_bufnr)
+  if bufname:match('lazygit') then
+    return
+  end
+
+  vim.api.nvim_buf_set_keymap(current_bufnr, 't', '<Esc><Esc>', '<C-\\><C-n>', { noremap = true, silent = true })
+end
+
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+  group = terminal_group,
+  pattern = 'term://*',
+  callback = enable_terminal_mappings,
+})
 
 -- LSP
 vim.keymap.set("n", "<Leader>lm", "<cmd>Mason<cr>")
