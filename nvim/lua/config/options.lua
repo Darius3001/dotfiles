@@ -16,6 +16,11 @@ vim.opt.undofile = true
 
 vim.opt.ignorecase = true
 
+-- Don't lose selection after indenting
+
+vim.keymap.set('v', '>', '>gv')
+vim.keymap.set('v', '<', '<gv')
+
 -- Start telescope at entry
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
