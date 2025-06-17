@@ -4,7 +4,10 @@ alias lg="lazygit"
 alias ld="lazydocker"
 alias v="nvim"
 alias agrep="alias | grep"
-alias w="cd $(walk)"
+
+function w() {
+  cd $(walk)
+}
 
 alias kg="kubectl get"
 alias kd="kubectl describe"
