@@ -16,6 +16,10 @@ vim.opt.undofile = true
 
 vim.opt.ignorecase = true
 
+-- ripgrep
+vim.opt.grepprg = "rg --vimgrep"
+vim.opt.grepformat = "%f:%l:%c:%m"
+
 -- Don't lose selection after indenting
 
 vim.keymap.set('v', '>', '>gv')
