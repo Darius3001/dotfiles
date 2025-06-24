@@ -3,7 +3,10 @@
 alias lg="lazygit"
 alias ld="lazydocker"
 alias v="nvim"
-alias agrep="alias | grep"
+
+function agrep() {
+  alias | grep "$*"
+}
 
 function w() {
   cd $(walk)
