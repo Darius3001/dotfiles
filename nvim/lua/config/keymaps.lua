@@ -81,6 +81,7 @@ vim.keymap.set("n", "<Leader>cl", util.ctoggle)
 vim.keymap.set("n", "<Leader>n", "<cmd>cn<cr>")
 vim.keymap.set("n", "<Leader>p", "<cmd>cp<cr>")
 vim.keymap.set("n", "<Leader>cg", ":grep ")
+vim.keymap.set('n', '<leader>lg', util.lgrepqf, { desc = "Grep in current buffer (quickfix)" })
 
 -- Buffers
 vim.keymap.set("n", "H", "<cmd>bprev<cr>")
