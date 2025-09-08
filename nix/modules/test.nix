@@ -54,6 +54,8 @@
     git
   ];
 
+  environment.variables.EDITOR = "vim";
+
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
