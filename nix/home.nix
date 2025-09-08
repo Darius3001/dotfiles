@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
-
-{
+let
+  tpm = pkgs.fetchFromGitHub {
+    owner = "tmux-plugins";
+    repo = "tpm";
+    rev = "v3.1.0";
+    sha256 = "sha256-CeI9Wq6tHqV68woE11lIY4cLoNY8XWyXyMHTDmFKJKI=";
+  };
+in {
   home.username = "darius";
   home.homeDirectory = "/home/darius";
   home.stateVersion = "25.05";
@@ -24,6 +30,11 @@
 
   home.file.".tmux.conf" = {
     source = ./../.tmux.conf;
+  };
+
+  home.file.".tmux/plugins/tpm" = {
+    source = tpm;
+    recursive = true;
   };
 
   home.packages = with pkgs; [ 
