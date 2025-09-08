@@ -116,6 +116,7 @@
     wget
     git
     tmux
+    gcc
   ];
 
   # Open ports in the firewall.
