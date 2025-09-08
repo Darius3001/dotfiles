@@ -19,13 +19,13 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            # home-manager.users.<yourUser> = import ./home.nix; # optional
+            home-manager.users.darius = import ./home.nix;
           }
         ];
       };
   in {
     nixosConfigurations = {
-      laptop  = mkHost "laptop"  "x86_64-linux";
+      laptop  = mkHost "laptop" "x86_64-linux";
     };
   };
 }
