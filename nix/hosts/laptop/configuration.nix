@@ -1,11 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-#  imports =
-#    [
-#      ./hardware-configuration.nix
-#    ];
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -56,7 +51,7 @@
     };
     windowManager.i3 = {
       enable = true;
-      extraPackages = with pkgs; [i3status dmenu];
+      configFile = ./../../../i3/config;
     };
   };
   services.displayManager.defaultSession = "none+i3";
@@ -95,17 +90,6 @@
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  #programs.home-manager.enable = true;
-  #home-manager.users.darius = {
-  #  home = {
-  #    packages = with pkgs; [
-  #      lazygit
-  #      lazydocker
-  #    ];
-
-  #    xdg.configFile."nvim".source = ./dotfiles/nvim;
-  #  };
-  #};
 
   programs.firefox.enable = true;
 
@@ -117,6 +101,11 @@
     git
     tmux
     gcc
+    xclip
+    cargo
+    python313
+    polybar
+    rofi
   ];
 
   # Open ports in the firewall.

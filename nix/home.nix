@@ -7,12 +7,20 @@
 
   programs.home-manager.enable = true;
 
-  # Your nvim config repo
   home.file.".config/nvim" = {
     source = ./../nvim;
     recursive = true;
   };
 
-  # Extras
+  home.file.".config/polybar" = {
+    source = ./../polybar;
+    recursive = true;
+  };
+
+  home.file.".config/rofi" = {
+    source = ./../rofi;
+    recursive = true;
+  };
+
   home.packages = with pkgs; [ ripgrep fd ];
 }
