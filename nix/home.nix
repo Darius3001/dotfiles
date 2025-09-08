@@ -41,6 +41,8 @@
     fd
     tmux
     neovim
+    lazygit
+    lazydocker
 
     gcc
     cargo
