@@ -94,17 +94,28 @@
     defaultUserShell = pkgs.zsh; 
   };
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  #programs.home-manager.enable = true;
+  #home-manager.users.darius = {
+  #  home = {
+  #    packages = with pkgs; [
+  #      kitty
+  #      lazygit
+  #      lazydocker
+  #    ];
+
+  #    xdg.configFile."nvim".source = ./dotfiles/nvim;
+  #  };
+  #};
+
   programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim
+    neovim
     wget
     git
-    kitty
-    neovim
     tmux
-    lazygit
-    lazydocker
   ];
 
   # Open ports in the firewall.
