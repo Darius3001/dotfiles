@@ -99,7 +99,6 @@
   environment.systemPackages = with pkgs; [
     vim
     neovim
-    kitty
     wget
     git
     tmux
@@ -107,8 +106,6 @@
     xclip
     cargo
     python313
-    polybar
-    rofi
     nodejs_24
   ];
 

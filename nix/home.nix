@@ -22,5 +22,16 @@
     recursive = true;
   };
 
-  home.packages = with pkgs; [ ripgrep fd ];
+  home.file.".tmux.conf" = {
+    source = ./../.tmux.conf;
+  };
+
+  home.packages = with pkgs; [ 
+    ripgrep 
+    fd 
+    kitty
+    polybar
+    rofi
+    rofi-power-menu
+  ];
 }
