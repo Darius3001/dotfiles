@@ -1,12 +1,6 @@
 { config, pkgs, ... }:
-let
-  tpm = pkgs.fetchFromGitHub {
-    owner = "tmux-plugins";
-    repo = "tpm";
-    rev = "v3.1.0";
-    sha256 = "sha256-CeI9Wq6tHqV68woE11lIY4cLoNY8XWyXyMHTDmFKJKI=";
-  };
-in {
+
+{
   home.username = "darius";
   home.homeDirectory = "/home/darius";
   home.stateVersion = "25.05";
@@ -33,13 +27,28 @@ in {
   };
 
   home.file.".tmux/plugins/tpm" = {
-    source = tpm;
+    source = pkgs.fetchFromGitHub {
+      owner = "tmux-plugins";
+      repo = "tpm";
+      rev = "v3.1.0";
+      sha256 = "sha256-CeI9Wq6tHqV68woE11lIY4cLoNY8XWyXyMHTDmFKJKI=";
+    };
     recursive = true;
   };
 
-  home.packages = with pkgs; [ 
-    ripgrep 
-    fd 
+  home.packages = with pkgs; [
+    ripgrep
+    fd
+    tmux
+    neovim
+
+    gcc
+    cargo
+    python313
+    nodejs_24
+
+    xclip
+    xkb-switch
     kitty
     polybar
     rofi

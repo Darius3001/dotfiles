@@ -56,12 +56,7 @@
   };
   services.displayManager.defaultSession = "none+i3";
 
-
-  
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
+  services.xserver.xkb.layout = "us,de";
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -88,6 +83,7 @@
     };
     defaultUserShell = pkgs.zsh; 
   };
+
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
@@ -98,15 +94,8 @@
 
   environment.systemPackages = with pkgs; [
     vim
-    neovim
     wget
     git
-    tmux
-    gcc
-    xclip
-    cargo
-    python313
-    nodejs_24
   ];
 
   # Open ports in the firewall.
