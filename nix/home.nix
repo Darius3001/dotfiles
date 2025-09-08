@@ -51,9 +51,12 @@
 
     xclip
     xkb-switch
-    kitty
+    brightnessctl
+    pamixer
     polybar
     rofi
     rofi-power-menu
+
+    kitty
   ];
 }

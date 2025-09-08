@@ -14,6 +14,17 @@
 
   services.xserver.xkb.layout = "us,de";
 
+  services.pipewire = {
+    enable = true;
+    audio.enable = true;
+    pulse.enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+    jack.enable = true;
+  };
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
@@ -49,6 +60,7 @@
   programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
+    pulseaudio
     vim
     wget
     git
