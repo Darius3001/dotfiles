@@ -106,6 +106,7 @@
     python313
     polybar
     rofi
+    nodejs_24
   ];
 
   # Open ports in the firewall.
