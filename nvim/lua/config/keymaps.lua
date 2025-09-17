@@ -4,6 +4,7 @@ local on_lsp_list = function(options)
 end
 
 local util = require("util")
+local telescope_builtin = require('telescope.builtin')
 
 vim.api.nvim_set_keymap("n", "{", "<cmd>BufferLineCyclePrev<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "}", "<cmd>BufferLineCycleNext<cr>", { noremap = true })
@@ -82,6 +83,7 @@ vim.keymap.set("n", "<Leader>n", "<cmd>cn<cr>")
 vim.keymap.set("n", "<Leader>p", "<cmd>cp<cr>")
 vim.keymap.set("n", "<Leader>cg", ":grep ")
 vim.keymap.set('n', '<leader>lg', util.lgrepqf, { desc = "Grep in current buffer (quickfix)" })
+vim.keymap.set('n', '<leader>qt', telescope_builtin.quickfix, { desc = "Telescope current quickfix list" })
 
 -- Buffers
 vim.keymap.set("n", "H", "<cmd>bprev<cr>")
