@@ -43,6 +43,7 @@
     neovim
     lazygit
     lazydocker
+    fzf
 
     gcc
     cargo
