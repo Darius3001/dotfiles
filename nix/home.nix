@@ -44,6 +44,7 @@
     lazygit
     lazydocker
     fzf
+    btop
 
     gcc
     cargo
