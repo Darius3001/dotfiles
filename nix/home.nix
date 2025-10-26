@@ -63,6 +63,7 @@
       rofi-power-menu
 
       kitty
+      nautilus
     ];
   };
 }
