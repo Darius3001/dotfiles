@@ -10,6 +10,7 @@
       configFile = ./../../i3/config;
     };
   };
+  programs.dconf.enable = true;
   services.displayManager.defaultSession = "none+i3";
 
   services.xserver.xkb.layout = "us,de";
@@ -25,12 +26,15 @@
     jack.enable = true;
   };
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  environment.variables = {
+    GTK_THEME = "Adwaita-dark";
+    QT_STYLE_OVERRIDE = "Adwaita-Dark";
+    XDG_CURRENT_DESKTOP = "i3";
+    XCURSOR_THEME = "Adwaita";
+  };
 
   programs.zsh = {
     enable = true;
-    #syntaxHighlighting.enable = true;
     ohMyZsh = {
       enable = true;
       plugins = [ "git" "docker" "kubectl" ];
@@ -64,6 +68,10 @@
     vim
     wget
     git
+    adwaita-icon-theme
+    gnome-themes-extra
+    lxappearance
+    materia-theme
   ];
 
   environment.variables.EDITOR = "vim";
