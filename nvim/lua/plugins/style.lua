@@ -8,6 +8,9 @@ return {
     end
   },
   {
+    'maxmx03/dracula.nvim',
+  },
+  {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000
