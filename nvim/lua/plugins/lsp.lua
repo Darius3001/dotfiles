@@ -23,7 +23,7 @@ return {
 			local lspconfig = require("lspconfig")
 
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "pyright" },
+				ensure_installed = { "lua_ls", "pyright", "pylint", "black" },
 				handlers = {
 					function(server_name)
 						lspconfig[server_name].setup({})
@@ -63,20 +63,23 @@ return {
 			})
 		end,
 	},
-	{ "towolf/vim-helm" },
 	{
-		"nvimtools/none-ls.nvim",
-		enable = false,
+		"stevearc/conform.nvim",
+		opts = {
+			formatters_by_ft = {
+				python = { "black" },
+			},
+		},
+	},
+	{
+		"mfussenegger/nvim-lint",
 		config = function()
-			local null_ls = require("null-ls")
-			null_ls.setup({
-				sources = {
-					null_ls.builtins.formatting.black,
-				},
-			})
+			require("lint").linters_by_ft = {
+				python = { "pylint" },
+			}
 		end,
 	},
-	{ "mfussenegger/nvim-lint" },
+	{ "towolf/vim-helm" },
 	{
 		"lervag/vimtex",
 		enable = false,

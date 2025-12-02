@@ -64,7 +64,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 
 -- LSP
 vim.keymap.set("n", "<Leader>lm", "<cmd>Mason<cr>")
-vim.keymap.set("n", "<Leader>lf", vim.lsp.buf.format)
+vim.keymap.set("n", "<Leader>lf", function() require("conform").format({ async = true }) end)
 vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename)
 vim.keymap.set("n", "<Leader>ld", util.print_diagnostics)
