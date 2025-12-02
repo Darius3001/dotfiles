@@ -64,7 +64,12 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 
 -- LSP
 vim.keymap.set("n", "<Leader>lm", "<cmd>Mason<cr>")
-vim.keymap.set("n", "<Leader>lf", function() require("conform").format({ async = true }) end)
+vim.keymap.set({ "n", "v" }, "<Leader>lf", function()
+  require("conform").format({
+    async = true,
+    lsp_fallback = true,
+  })
+end)
 vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename)
 vim.keymap.set("n", "<Leader>ld", util.print_diagnostics)
@@ -128,10 +133,10 @@ vim.keymap.set('n', '<Leader>dB', function() dap.set_breakpoint() end)
 vim.keymap.set('n', '<Leader>dp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
 vim.keymap.set('n', '<Leader>dr', function() dap.repl.open() end)
 vim.keymap.set('n', '<Leader>dl', function() dap.run_last() end)
-vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
+vim.keymap.set({ 'n', 'v' }, '<Leader>dh', function()
   widgets.hover()
 end)
-vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
+vim.keymap.set({ 'n', 'v' }, '<Leader>dp', function()
   widgets.preview()
 end)
 vim.keymap.set('n', '<Leader>df', function()
