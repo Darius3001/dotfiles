@@ -13,27 +13,28 @@ return {
 	{
 		"williamboman/mason.nvim",
 		config = function()
-			require("mason").setup()
+			require("mason").setup({
+        ensure_installed = { "pylint", "black" }
+      })
 		end,
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
 		config = function()
-			local lspconfig = require("lspconfig")
 
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "pyright", "pylint", "black" },
+				ensure_installed = { "lua_ls", "pyright" },
 				handlers = {
 					function(server_name)
-						lspconfig[server_name].setup({})
+						vim.lsp.enable(server_name)
 					end,
 				},
 				automatic_installation = true,
 			})
 
 			-- leptos lsp config
-			lspconfig.rust_analyzer.setup({
+			vim.lsp.config("rust-analyzer", {
 				-- Other Configs ...
 				settings = {
 					["rust-analyzer"] = {
