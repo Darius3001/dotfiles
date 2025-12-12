@@ -47,8 +47,8 @@ exec setxkbmap -layout us,de
 bindsym $mod+Shift+m exec xkb-switch -n
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 10
-bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 10
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost --set-limit 150 -i 10
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --allow-boost --set-limit 150 -d 10
 bindsym XF86AudioMute exec --no-startup-id pamixer -t
 bindsym XF86AudioMicMute exec --no-startup-id pamixer --default-source -t
 
