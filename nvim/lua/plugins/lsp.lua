@@ -32,25 +32,6 @@ return {
 				},
 				automatic_installation = true,
 			})
-
-			-- leptos lsp config
-			vim.lsp.config("rust-analyzer", {
-				-- Other Configs ...
-				settings = {
-					["rust-analyzer"] = {
-						-- Other Settings ...
-						procMacro = {
-							ignored = {
-								leptos_macro = {
-									-- optional: --
-									-- "component",
-									"server",
-								},
-							},
-						},
-					},
-				},
-			})
 		end,
 	},
 	{
