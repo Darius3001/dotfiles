@@ -27,6 +27,8 @@ exec --no-startup-id nitrogen --restore
 
 exec_always --no-startup-id dunst
 
+exec --no-startup-id i3-battery-popup -n
+
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
