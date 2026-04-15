@@ -48,7 +48,7 @@ for_window [class="^.*"] border pixel 1
 exec polybar
 
 exec setxkbmap -layout us,de
-bindsym $mod+Shift+m exec xkb-switch -n
+bindsym $mod+Shift+m exec --no-startup-id xkb-switch -n
 
 # Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --allow-boost --set-limit 150 -i 10
