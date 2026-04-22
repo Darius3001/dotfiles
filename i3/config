@@ -49,7 +49,7 @@ for_window [class="^.*"] border pixel 1
 
 exec polybar
 
-exec setxkbmap -layout us,de
+exec_always setxkbmap -layout us,de
 bindsym $mod+Shift+m exec --no-startup-id xkb-switch -n
 
 # Use pactl to adjust volume in PulseAudio.
