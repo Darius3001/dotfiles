@@ -23,7 +23,7 @@ return {
     dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "pyright", "jls" },
+        ensure_installed = { "lua_ls", "pyright" },
         handlers = {
           function(server_name)
             vim.lsp.enable(server_name)
