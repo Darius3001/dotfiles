@@ -34,14 +34,10 @@ return {
     end,
   },
   {
-    "nvim-treesitter/nvim-treesitter",
+    "romus204/tree-sitter-manager.nvim",
     config = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        callback = function(args)
-          pcall(vim.treesitter.start, args.buf)
-        end,
-      })
-    end
+      require("tree-sitter-manager").setup()
+    end,
   },
   {
     "stevearc/conform.nvim",
