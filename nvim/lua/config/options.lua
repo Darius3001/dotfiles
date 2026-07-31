@@ -4,7 +4,7 @@ vim.opt.expandtab = true
 
 vim.cmd("highlight EndOfBuffer guifg=bg")
 vim.opt.termguicolors = true
-vim.cmd.colorscheme "dracula"
+vim.cmd.colorscheme "dracula-soft"
 
 vim.opt.clipboard = "unnamedplus"
 
