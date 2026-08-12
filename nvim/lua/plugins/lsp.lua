@@ -8,6 +8,23 @@ return {
         underline = true,
         update_in_insert = false,
       })
+      vim.lsp.config("helm_ls", {
+        settings = {
+          ["helm-ls"] = {
+            yamlls = {
+              path = "yaml-language-server",
+              config = {
+                schemas = {
+                  ["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/workflow_v1alpha1.json"] = "templates/**/*workflow*.yaml",
+                  ["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/workflowtemplate_v1alpha1.json"] = "templates/**/*workflowtemplate*.yaml",
+                  ["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/clusterworkflowtemplate_v1alpha1.json"] = "templates/**/*clusterworkflowtemplate*.yaml",
+                  ["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/cronworkflow_v1alpha1.json"] = "templates/**/*cronworkflow*.yaml",
+                },
+              },
+            },
+          },
+        },
+      })
     end,
   },
   {
@@ -23,7 +40,7 @@ return {
     dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "pyright" },
+        ensure_installed = { "lua_ls", "pyright", "helm_ls" },
         handlers = {
           function(server_name)
             vim.lsp.enable(server_name)
