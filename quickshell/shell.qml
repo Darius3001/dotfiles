@@ -17,7 +17,7 @@ ShellRoot {
     readonly property color pink: "#f5c2e7"
     readonly property color otherDisplay: "#89b4fa"
     readonly property color warning: "#f38ba8"
-    readonly property string fontFamily: "sans-serif"
+    readonly property string fontFamily: "JetBrainsMono Nerd Font"
 
     readonly property var audio: Pipewire.defaultAudioSink?.audio ?? null
     readonly property var battery: UPower.displayDevice

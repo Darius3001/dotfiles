@@ -53,6 +53,7 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("nm-applet")
   hl.exec_cmd("hyprpaper")
   hl.exec_cmd("qs --no-duplicate")
+  hl.exec_cmd("gsettings set org.gnome.desktop.interface icon-theme 'Tela-circle'")
 end)
 
 
@@ -272,6 +273,7 @@ local closeWindowBind = hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close()
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 
@@ -303,6 +305,9 @@ hl.define_submap("resize", function()
     hl.bind("Escape", hl.dsp.submap("reset"))
     hl.bind(mainMod .. " + R", hl.dsp.submap("reset"))
 end)
+
+-- Move the current workspace to the next monitor (wrapping around).
+hl.bind(mainMod .. " + SHIFT + Tab", hl.dsp.workspace.move({ monitor = "+1" }))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
