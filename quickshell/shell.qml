@@ -14,6 +14,7 @@ ShellRoot {
     readonly property color foreground: "#cdd6f4"
     readonly property color muted: "#9399b2"
     readonly property color accent: "#cba6f7"
+    readonly property color pink: "#f5c2e7"
     readonly property color otherDisplay: "#89b4fa"
     readonly property color warning: "#f38ba8"
     readonly property string fontFamily: "sans-serif"
@@ -74,15 +75,25 @@ ShellRoot {
                 left: 8
                 right: 8
             }
-            implicitHeight: 40
+            implicitHeight: 44
             color: "transparent"
 
             Rectangle {
                 anchors.fill: parent
+                radius: 14
+                gradient: Gradient {
+                    orientation: Gradient.Horizontal
+                    GradientStop { position: 0; color: root.pink }
+                    GradientStop { position: 0.5; color: root.accent }
+                    GradientStop { position: 1; color: root.otherDisplay }
+                }
+            }
+
+            Rectangle {
+                anchors.fill: parent
+                anchors.margins: 2
                 color: root.background
-                radius: 10
-                border.color: root.surface
-                border.width: 1
+                radius: 12
 
                 RowLayout {
                     anchors.fill: parent
@@ -92,7 +103,7 @@ ShellRoot {
 
 
                     Row {
-                        spacing: 4
+                        spacing: 6
                         Layout.alignment: Qt.AlignVCenter
 
                         Repeater {
@@ -106,10 +117,25 @@ ShellRoot {
                                 readonly property bool occupied: (workspace?.toplevels.values.length ?? 0) > 0
                                 readonly property bool inUseElsewhere: (occupied || workspace?.active === true) && workspace?.monitor != null && bar.monitor != null && workspace.monitor.id !== bar.monitor.id
 
-                                width: 28
-                                height: 26
-                                radius: 7
+                                width: active ? 36 : 28
+                                height: 28
+                                radius: 9
                                 color: active ? root.accent : workspaceMouse.containsMouse ? root.surface : "transparent"
+                                gradient: active ? workspaceGradient : null
+                                border.width: inUseElsewhere && !active ? 1 : 0
+                                border.color: Qt.alpha(root.otherDisplay, 0.35)
+
+                                Gradient {
+                                    id: workspaceGradient
+                                    orientation: Gradient.Horizontal
+                                    GradientStop { position: 0; color: root.pink }
+                                    GradientStop { position: 0.5; color: root.accent }
+                                    GradientStop { position: 1; color: root.otherDisplay }
+                                }
+
+                                Behavior on width {
+                                    NumberAnimation { duration: 180; easing.type: Easing.OutCubic }
+                                }
 
                                 Behavior on color {
                                     ColorAnimation { duration: 120 }
@@ -119,7 +145,7 @@ ShellRoot {
                                     anchors.centerIn: parent
                                     text: workspaceButton.modelData
                                     font.bold: workspaceButton.active
-                                    color: workspaceButton.active ? root.background : workspaceButton.occupied ? root.foreground : root.muted
+                                    color: workspaceButton.active ? root.background : workspaceButton.inUseElsewhere ? root.otherDisplay : workspaceButton.occupied ? root.foreground : root.muted
                                 }
 
                                 Rectangle {
@@ -157,17 +183,23 @@ ShellRoot {
                     Rectangle {
                         id: volumeControl
                         Layout.alignment: Qt.AlignVCenter
-                        implicitWidth: volumeLabel.implicitWidth + 18
-                        implicitHeight: 26
-                        radius: 7
-                        color: volumeMouse.containsMouse ? root.surface : "transparent"
+                        implicitWidth: volumeLabel.implicitWidth + 24
+                        implicitHeight: 28
+                        radius: 9
+                        color: volumeMouse.containsMouse ? root.surface : Qt.alpha(root.otherDisplay, 0.08)
+                        border.width: 1
+                        border.color: Qt.alpha(root.otherDisplay, volumeMouse.containsMouse ? 0.5 : 0.18)
                         visible: root.audio !== null
+
+                        Behavior on color {
+                            ColorAnimation { duration: 120 }
+                        }
 
                         Label {
                             id: volumeLabel
                             anchors.centerIn: parent
                             text: root.audio?.muted ? "Muted" : "Vol " + Math.round((root.audio?.volume ?? 0) * 100) + "%"
-                            color: root.audio?.muted ? root.muted : root.foreground
+                            color: root.audio?.muted ? root.muted : root.otherDisplay
                         }
 
                         MouseArea {
@@ -203,10 +235,25 @@ ShellRoot {
                         color: root.muted
                     }
 
-                    Label {
-                        text: Qt.formatDateTime(clock.date, "HH:mm")
-                        font.bold: true
-                        color: root.accent
+                    Rectangle {
+                        implicitWidth: timeLabel.implicitWidth + 24
+                        implicitHeight: 28
+                        Layout.alignment: Qt.AlignVCenter
+                        radius: 9
+                        gradient: Gradient {
+                            orientation: Gradient.Horizontal
+                            GradientStop { position: 0; color: root.pink }
+                            GradientStop { position: 0.5; color: root.accent }
+                            GradientStop { position: 1; color: root.otherDisplay }
+                        }
+
+                        Label {
+                            id: timeLabel
+                            anchors.centerIn: parent
+                            text: Qt.formatDateTime(clock.date, "HH:mm")
+                            font.bold: true
+                            color: root.background
+                        }
                     }
                 }
             }

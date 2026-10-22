@@ -99,11 +99,12 @@ hl.config({
         gaps_in  = 5,
         gaps_out = 20,
 
-        border_size = 2,
+        border_size = 3,
 
         col = {
-            active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
-            inactive_border = "rgba(595959aa)",
+            -- Catppuccin gradient, matching the Quickshell accents.
+            active_border   = { colors = {"rgba(f5c2e7ff)", "rgba(cba6f7ff)", "rgba(89b4faff)"}, angle = 45 },
+            inactive_border = { colors = {"rgba(45475acc)", "rgba(313244cc)"}, angle = 45 },
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -116,7 +117,7 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 10,
+        rounding       = 12,
         rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows
