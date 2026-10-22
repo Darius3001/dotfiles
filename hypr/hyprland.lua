@@ -52,6 +52,7 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd(terminal)
   hl.exec_cmd("nm-applet")
   hl.exec_cmd("hyprpaper")
+  hl.exec_cmd("qs --no-duplicate")
 end)
 
 
@@ -272,13 +273,35 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
--- Move focus with mainMod + arrow keys
-hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
+-- i3-style focus and movement with HJKL or arrow keys.
+local motions = {
+    { key = "H", arrow = "left",  direction = "left",  x = -4, y = 0 },
+    { key = "J", arrow = "down",  direction = "down",  x = 0, y = 4 },
+    { key = "K", arrow = "up",    direction = "up",    x = 0, y = -4 },
+    { key = "L", arrow = "right", direction = "right", x = 4, y = 0 },
+}
+
+for _, motion in ipairs(motions) do
+    for _, key in ipairs({ motion.key, motion.arrow }) do
+        hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ direction = motion.direction }))
+        hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ direction = motion.direction }))
+    end
+end
+
+-- Super+R enters resize mode; Enter, Escape or Super+R leaves it.
+hl.bind(mainMod .. " + R", hl.dsp.submap("resize"))
+hl.define_submap("resize", function()
+    for _, motion in ipairs(motions) do
+        for _, key in ipairs({ motion.key, motion.arrow }) do
+            hl.bind(key, hl.dsp.window.resize({ x = motion.x, y = motion.y, relative = true }), { repeating = true })
+        end
+    end
+
+    hl.bind("Return", hl.dsp.submap("reset"))
+    hl.bind("Escape", hl.dsp.submap("reset"))
+    hl.bind(mainMod .. " + R", hl.dsp.submap("reset"))
+end)
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
