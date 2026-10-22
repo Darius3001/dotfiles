@@ -14,6 +14,7 @@ ShellRoot {
     readonly property color foreground: "#cdd6f4"
     readonly property color muted: "#9399b2"
     readonly property color accent: "#cba6f7"
+    readonly property color otherDisplay: "#89b4fa"
     readonly property color warning: "#f38ba8"
     readonly property string fontFamily: "sans-serif"
 
@@ -89,12 +90,6 @@ ShellRoot {
                     anchors.rightMargin: 16
                     spacing: 16
 
-                    Label {
-                        text: "QS"
-                        color: root.accent
-                        font.bold: true
-                        font.letterSpacing: 1
-                    }
 
                     Row {
                         spacing: 4
@@ -106,8 +101,10 @@ ShellRoot {
                             Rectangle {
                                 id: workspaceButton
                                 required property int modelData
+                                readonly property var workspace: Hyprland.workspaces.values.find(w => w.id === modelData) ?? null
                                 readonly property bool active: bar.monitor?.activeWorkspace?.id === modelData
-                                readonly property bool occupied: Hyprland.workspaces.values.some(w => w.id === modelData)
+                                readonly property bool occupied: (workspace?.toplevels.values.length ?? 0) > 0
+                                readonly property bool inUseElsewhere: (occupied || workspace?.active === true) && workspace?.monitor != null && bar.monitor != null && workspace.monitor.id !== bar.monitor.id
 
                                 width: 28
                                 height: 26
@@ -123,6 +120,17 @@ ShellRoot {
                                     text: workspaceButton.modelData
                                     font.bold: workspaceButton.active
                                     color: workspaceButton.active ? root.background : workspaceButton.occupied ? root.foreground : root.muted
+                                }
+
+                                Rectangle {
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.bottom: parent.bottom
+                                    anchors.bottomMargin: 2
+                                    width: 4
+                                    height: 4
+                                    radius: 2
+                                    color: root.otherDisplay
+                                    visible: workspaceButton.inUseElsewhere
                                 }
 
                                 MouseArea {

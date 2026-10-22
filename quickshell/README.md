@@ -14,6 +14,7 @@ Quickshell reloads the configuration when you save `shell.qml`.
 
 - Click a workspace number to switch. Workspaces 1–5 always appear; other open numbered workspaces appear automatically.
 - The active workspace is highlighted separately on each monitor.
+- A blue dot below a workspace number means it is active or has windows on another display (including empty active workspaces).
 - Active window title, date, and 24-hour clock.
 - Click volume to mute; scroll to adjust by 5% (capped at 100%). Uses PipeWire.
 - Battery percentage and AC status via UPower, hidden when no battery is present. Low battery turns red.
