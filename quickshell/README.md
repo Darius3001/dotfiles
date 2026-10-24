@@ -19,6 +19,7 @@ Quickshell reloads the configuration when you save `shell.qml`.
 - Blue-tinted volume controls and a gradient clock badge, with smooth hover transitions.
 - Click volume to mute; scroll to adjust by 5% (capped at 100%). Uses PipeWire.
 - Battery percentage and AC status via UPower, hidden when no battery is present. Low battery turns red.
+- Click the power button to suspend, log out of Hyprland, restart, or shut down. All except suspend ask for confirmation. Use ↑/↓ and Enter, or click; Esc goes back/closes, and clicking outside closes the menu.
 
 Change the colors and font near the top of `shell.qml`.
 

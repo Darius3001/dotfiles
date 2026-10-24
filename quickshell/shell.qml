@@ -18,6 +18,7 @@ ShellRoot {
     readonly property color otherDisplay: "#89b4fa"
     readonly property color warning: "#f38ba8"
     readonly property string fontFamily: "JetBrainsMono Nerd Font"
+    property var powerMenuScreen: null
 
     readonly property var audio: Pipewire.defaultAudioSink?.audio ?? null
     readonly property var battery: UPower.displayDevice
@@ -77,6 +78,13 @@ ShellRoot {
             }
             implicitHeight: 44
             color: "transparent"
+
+            PowerMenu {
+                screen: bar.modelData
+                theme: root
+                visible: root.powerMenuScreen === bar.modelData
+                onDismissed: root.powerMenuScreen = null
+            }
 
             Rectangle {
                 anchors.fill: parent
@@ -253,6 +261,29 @@ ShellRoot {
                             text: Qt.formatDateTime(clock.date, "HH:mm")
                             font.bold: true
                             color: root.background
+                        }
+                    }
+
+                    Rectangle {
+                        implicitWidth: 32
+                        implicitHeight: 28
+                        Layout.alignment: Qt.AlignVCenter
+                        radius: 9
+                        color: powerMouse.containsMouse ? root.surface : "transparent"
+
+                        Label {
+                            anchors.centerIn: parent
+                            text: "⏻"
+                            font.pixelSize: 19
+                            color: root.warning
+                        }
+
+                        MouseArea {
+                            id: powerMouse
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: root.powerMenuScreen = bar.modelData
                         }
                     }
                 }
