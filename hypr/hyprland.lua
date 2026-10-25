@@ -276,6 +276,7 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + SHIFT + minus", hl.dsp.exec_cmd("qs ipc call powerMenu toggle"))
 
 -- i3-style focus and movement with HJKL or arrow keys.
 local motions = {

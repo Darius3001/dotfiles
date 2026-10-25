@@ -1,5 +1,6 @@
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Io
 import Quickshell.Services.Pipewire
 import Quickshell.Services.UPower
 import QtQuick
@@ -19,6 +20,21 @@ ShellRoot {
     readonly property color warning: "#f38ba8"
     readonly property string fontFamily: "JetBrainsMono Nerd Font"
     property var powerMenuScreen: null
+
+    IpcHandler {
+        target: "powerMenu"
+
+        function toggle(): void {
+            if (root.powerMenuScreen !== null) {
+                root.powerMenuScreen = null;
+                return;
+            }
+
+            root.powerMenuScreen = Quickshell.screens.find(
+                screen => screen.name === Hyprland.focusedMonitor?.name
+            ) ?? Quickshell.screens[0];
+        }
+    }
 
     readonly property var audio: Pipewire.defaultAudioSink?.audio ?? null
     readonly property var battery: UPower.displayDevice
