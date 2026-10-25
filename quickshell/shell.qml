@@ -11,9 +11,9 @@ ShellRoot {
     // Edit these to change the look of the whole bar.
     readonly property color background: "#1e1e2e"
     readonly property color surface: "#313244"
-    readonly property color foreground: "#cdd6f4"
+    readonly property color foreground: "#e1e3eb"
     readonly property color muted: "#9399b2"
-    readonly property color accent: "#cba6f7"
+    readonly property color accent: "#eba6f7"
     readonly property color pink: "#f5c2e7"
     readonly property color otherDisplay: "#89b4fa"
     readonly property color warning: "#f38ba8"
@@ -25,7 +25,7 @@ ShellRoot {
 
     // Keep 1–5 available, and include any additional open workspaces.
     readonly property var workspaceIds: {
-        const ids = [1, 2, 3, 4, 5];
+        const ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         for (const workspace of Hyprland.workspaces.values) {
             if (workspace.id > 0 && !ids.includes(workspace.id))
                 ids.push(workspace.id);
@@ -71,12 +71,8 @@ ShellRoot {
                 left: true
                 right: true
             }
-            margins {
-                top: 8
-                left: 8
-                right: 8
-            }
-            implicitHeight: 44
+
+            implicitHeight: 32
             color: "transparent"
 
             PowerMenu {
@@ -88,20 +84,7 @@ ShellRoot {
 
             Rectangle {
                 anchors.fill: parent
-                radius: 14
-                gradient: Gradient {
-                    orientation: Gradient.Horizontal
-                    GradientStop { position: 0; color: root.pink }
-                    GradientStop { position: 0.5; color: root.accent }
-                    GradientStop { position: 1; color: root.otherDisplay }
-                }
-            }
-
-            Rectangle {
-                anchors.fill: parent
-                anchors.margins: 2
                 color: root.background
-                radius: 12
 
                 RowLayout {
                     anchors.fill: parent
@@ -125,7 +108,7 @@ ShellRoot {
                                 readonly property bool occupied: (workspace?.toplevels.values.length ?? 0) > 0
                                 readonly property bool inUseElsewhere: (occupied || workspace?.active === true) && workspace?.monitor != null && bar.monitor != null && workspace.monitor.id !== bar.monitor.id
 
-                                width: active ? 36 : 28
+                                width: active ? 32 : 28
                                 height: 28
                                 radius: 9
                                 color: active ? root.accent : workspaceMouse.containsMouse ? root.surface : "transparent"
