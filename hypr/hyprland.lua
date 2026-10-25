@@ -54,6 +54,7 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("hyprpaper")
   hl.exec_cmd("qs --no-duplicate")
   hl.exec_cmd("gsettings set org.gnome.desktop.interface icon-theme 'Tela-circle'")
+  hl.exec_cmd("gsettings set org.gnome.desktop.interface font-name 'JetBrainsMono Nerd Font'")
 end)
 
 
