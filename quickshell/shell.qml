@@ -38,6 +38,29 @@ ShellRoot {
 
     readonly property var audio: Pipewire.defaultAudioSink?.audio ?? null
     readonly property var battery: UPower.displayDevice
+    property int brightnessPercent: -1
+
+    Process {
+        id: brightnessProcess
+        command: ["brightnessctl", "--class=backlight", "--machine-readable", "info"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const percent = Number.parseInt(this.text.trim().split("\n")[0].split(",")[3], 10);
+                root.brightnessPercent = Number.isFinite(percent) && percent >= 0 && percent <= 100 ? percent : -1;
+            }
+        }
+    }
+
+    Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: {
+            if (!brightnessProcess.running)
+                brightnessProcess.running = true;
+        }
+    }
 
     // Keep 1–5 available, and include any additional open workspaces.
     readonly property var workspaceIds: {
@@ -226,6 +249,12 @@ ShellRoot {
                                 event.accepted = true;
                             }
                         }
+                    }
+
+                    Label {
+                        visible: root.brightnessPercent >= 0
+                        text: "󰃠 " + root.brightnessPercent + "%"
+                        color: root.pink
                     }
 
                     Label {
