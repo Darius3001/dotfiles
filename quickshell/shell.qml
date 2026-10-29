@@ -273,8 +273,8 @@ ShellRoot {
                         Label {
                             anchors.centerIn: parent
                             text: "⏻"
-                            font.pixelSize: 19
-                            color: root.warning
+                            font.pixelSize: 16
+                            color: root.foreground
                         }
 
                         MouseArea {
