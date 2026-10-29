@@ -171,7 +171,7 @@ ShellRoot {
                                     anchors.fill: parent
                                     hoverEnabled: true
                                     cursorShape: Qt.PointingHandCursor
-                                    onClicked: Hyprland.dispatch("workspace " + workspaceButton.modelData)
+                                    onClicked: Hyprland.dispatch("hl.dsp.focus({ workspace = " + workspaceButton.modelData + " })")
                                 }
                             }
                         }
