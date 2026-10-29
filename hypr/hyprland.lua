@@ -57,6 +57,12 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("gsettings set org.gnome.desktop.interface font-name 'JetBrainsMono Nerd Font'")
 end)
 
+-- Restart Hyprlauncher after a Hyprland reload to reread the toolkit theme.
+-- After editing hyprtoolkit.conf, run `hyprctl reload` to trigger this hook.
+hl.on("config.reloaded", function ()
+  hl.exec_cmd("sh -c 'pkill -x hyprlauncher; sleep 0.2; exec hyprlauncher -d'")
+end)
+
 
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
@@ -276,6 +282,7 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.reload_config())
 hl.bind(mainMod .. " + SHIFT + minus", hl.dsp.exec_cmd("qs ipc call powerMenu toggle"))
 
 -- i3-style focus and movement with HJKL or arrow keys.

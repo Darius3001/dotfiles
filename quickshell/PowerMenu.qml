@@ -11,7 +11,7 @@ PanelWindow {
     property bool confirming: false
     readonly property var actions: [
         { label: "Suspend", icon: "󰒲", command: ["systemctl", "suspend"] },
-        { label: "Log out", icon: "󰍃", command: ["hyprctl", "dispatch", "exit"] },
+        { label: "Log out", icon: "󰍃", command: ["hyprshutdown"] },
         { label: "Restart", icon: "󰜉", command: ["systemctl", "reboot"] },
         { label: "Shut down", icon: "⏻", command: ["systemctl", "poweroff"] }
     ]
