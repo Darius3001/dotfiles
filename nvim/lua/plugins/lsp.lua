@@ -8,6 +8,14 @@ return {
         underline = true,
         update_in_insert = false,
       })
+      vim.lsp.config("qmlls", {
+        cmd = { "qmlls6", "-E" },
+        cmd_env = {
+          QML_IMPORT_PATH = "/usr/lib/qt6/qml",
+          QML2_IMPORT_PATH = "/usr/lib/qt6/qml",
+        },
+      })
+      vim.lsp.enable("qmlls")
       vim.lsp.config("helm_ls", {
         settings = {
           ["helm-ls"] = {
