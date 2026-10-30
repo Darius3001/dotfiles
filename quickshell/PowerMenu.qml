@@ -121,9 +121,7 @@ PanelWindow {
             width: Math.min(360, parent.width - 32)
             height: content.implicitHeight + 40
             radius: 18
-            color: Qt.alpha(menu.theme.background, 0.25)
-            border.width: 2
-            border.color: Qt.alpha(menu.theme.background, 0.65)
+            color: Qt.alpha(menu.theme.background, 0.45)
 
 
             // Keep clicks inside the card from dismissing the menu.
@@ -160,7 +158,7 @@ PanelWindow {
                         Layout.fillWidth: true
                         implicitHeight: 46
                         radius: 10
-                        color: menu.selectedIndex === index ? menu.theme.surface : "transparent"
+                        color: menu.selectedIndex === index ? Qt.alpha(menu.theme.surface, 0.7) : "transparent"
 
                         Text {
                             anchors {
