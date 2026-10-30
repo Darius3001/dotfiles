@@ -94,14 +94,22 @@ PanelWindow {
 
         Keys.onEscapePressed: menu.cancel()
         Keys.onPressed: event => {
-            if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                menu.activate();
-            } else if (!menu.confirming && (event.key === Qt.Key_Down || event.key === Qt.Key_Tab)) {
-                menu.selectNextEntry();
-            } else if (!menu.confirming && event.key === Qt.Key_Up) {
-                menu.selectPreviousEntry()
-            } else {
-                return;
+            switch (true) {
+                case [Qt.Key_Return, Qt.Key_Enter].includes(event.key):
+                    menu.activate()
+                    break
+                case menu.confirming:
+                    break
+                case [Qt.Key_Down, Qt.Key_J, Qt.Key_Tab].includes(event.key):
+                case (event.modifiers & Qt.ControlModifier) && event.key == Qt.Key_N:
+                    menu.selectNextEntry()
+                    break
+                case [Qt.Key_Up, Qt.Key_Backtab, Qt.Key_K].includes(event.key):
+                case (event.modifiers & Qt.ControlModifier) && event.key == Qt.Key_P:
+                    menu.selectPreviousEntry()
+                    break
+                default:
+                    return
             }
             event.accepted = true;
         }
