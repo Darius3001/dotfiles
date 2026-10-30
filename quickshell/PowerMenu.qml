@@ -6,6 +6,8 @@ import QtQuick.Layouts
 PanelWindow {
     id: menu
 
+    WlrLayershell.namespace: "quickshell-power-menu"
+
     required property var theme
     property int selectedIndex: 0
     property bool confirming: false
@@ -119,9 +121,10 @@ PanelWindow {
             width: Math.min(360, parent.width - 32)
             height: content.implicitHeight + 40
             radius: 18
-            color: menu.theme.background
+            color: Qt.alpha(menu.theme.background, 0.25)
             border.width: 2
-            border.color: menu.theme.accent
+            border.color: Qt.alpha(menu.theme.background, 0.65)
+
 
             // Keep clicks inside the card from dismissing the menu.
             MouseArea {

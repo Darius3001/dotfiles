@@ -385,6 +385,19 @@ hl.window_rule({
 })
 
 -- Layer rules also return a handle.
+hl.layer_rule({
+    name  = "quickshell-bar-blur",
+    match = { namespace = "^quickshell-bar$" },
+    blur = true,
+    ignore_alpha = 0.2,
+})
+
+hl.layer_rule({
+    name  = "quickshell-power-menu-blur",
+    match = { namespace = "^quickshell-power-menu$" },
+    blur = true,
+    ignore_alpha = 0.2,
+})
 -- local overlayLayerRule = hl.layer_rule({
 --     name  = "no-anim-overlay",
 --     match = { namespace = "^my-overlay$" },

@@ -3,6 +3,7 @@ import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Services.Pipewire
 import Quickshell.Services.UPower
+import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
 
@@ -116,6 +117,7 @@ ShellRoot {
 
             implicitHeight: 32
             color: "transparent"
+            WlrLayershell.namespace: "quickshell-bar"
 
             PowerMenu {
                 screen: bar.modelData
@@ -126,12 +128,12 @@ ShellRoot {
 
             Rectangle {
                 anchors.fill: parent
-                color: root.background
-                radius: 8
+                color: Qt.alpha(root.background, 0.80)
+                radius: 6
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.leftMargin: 2
+                    anchors.leftMargin: 8
                     anchors.rightMargin: 16
                     spacing: 16
 
