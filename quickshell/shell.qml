@@ -108,6 +108,11 @@ ShellRoot {
                 left: true
                 right: true
             }
+            margins {
+                top: 10
+                left: 10
+                right: 10
+            }
 
             implicitHeight: 32
             color: "transparent"
@@ -122,10 +127,11 @@ ShellRoot {
             Rectangle {
                 anchors.fill: parent
                 color: root.background
+                radius: 8
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.leftMargin: 12
+                    anchors.leftMargin: 2
                     anchors.rightMargin: 16
                     spacing: 16
 
@@ -144,9 +150,9 @@ ShellRoot {
                                 readonly property bool occupied: (workspace?.toplevels.values.length ?? 0) > 0
                                 readonly property bool inUseElsewhere: (occupied || workspace?.active === true) && workspace?.monitor != null && bar.monitor != null && workspace.monitor.id !== bar.monitor.id
 
-                                width: active ? 32 : 28
+                                width: 28
                                 height: 28
-                                radius: 9
+                                radius: 6
                                 color: active ? root.accent : workspaceMouse.containsMouse ? root.surface : "transparent"
                                 gradient: active ? workspaceGradient : null
                                 border.width: inUseElsewhere && !active ? 1 : 0
@@ -187,17 +193,6 @@ ShellRoot {
                                     text: workspaceButton.modelData
                                     font.bold: workspaceButton.active
                                     color: workspaceButton.active ? root.background : workspaceButton.inUseElsewhere ? root.otherDisplay : workspaceButton.occupied ? root.foreground : root.muted
-                                }
-
-                                Rectangle {
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    anchors.bottom: parent.bottom
-                                    anchors.bottomMargin: 2
-                                    width: 4
-                                    height: 4
-                                    radius: 2
-                                    color: root.otherDisplay
-                                    visible: workspaceButton.inUseElsewhere
                                 }
 
                                 MouseArea {
