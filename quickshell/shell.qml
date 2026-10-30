@@ -30,9 +30,7 @@ ShellRoot {
                 return;
             }
 
-            root.powerMenuScreen = Quickshell.screens.find(
-                screen => screen.name === Hyprland.focusedMonitor?.name
-            ) ?? Quickshell.screens[0];
+            root.powerMenuScreen = Quickshell.screens.find(screen => screen.name === Hyprland.focusedMonitor?.name) ?? Quickshell.screens[0];
         }
     }
 
@@ -131,7 +129,6 @@ ShellRoot {
                     anchors.rightMargin: 16
                     spacing: 16
 
-
                     Row {
                         spacing: 6
                         Layout.alignment: Qt.AlignVCenter
@@ -158,17 +155,31 @@ ShellRoot {
                                 Gradient {
                                     id: workspaceGradient
                                     orientation: Gradient.Horizontal
-                                    GradientStop { position: 0; color: root.pink }
-                                    GradientStop { position: 0.5; color: root.accent }
-                                    GradientStop { position: 1; color: root.otherDisplay }
+                                    GradientStop {
+                                        position: 0
+                                        color: root.pink
+                                    }
+                                    GradientStop {
+                                        position: 0.5
+                                        color: root.accent
+                                    }
+                                    GradientStop {
+                                        position: 1
+                                        color: root.otherDisplay
+                                    }
                                 }
 
                                 Behavior on width {
-                                    NumberAnimation { duration: 180; easing.type: Easing.OutCubic }
+                                    NumberAnimation {
+                                        duration: 180
+                                        easing.type: Easing.OutCubic
+                                    }
                                 }
 
                                 Behavior on color {
-                                    ColorAnimation { duration: 120 }
+                                    ColorAnimation {
+                                        duration: 120
+                                    }
                                 }
 
                                 Label {
@@ -222,7 +233,9 @@ ShellRoot {
                         visible: root.audio !== null
 
                         Behavior on color {
-                            ColorAnimation { duration: 120 }
+                            ColorAnimation {
+                                duration: 120
+                            }
                         }
 
                         Label {
@@ -278,9 +291,18 @@ ShellRoot {
                         radius: 9
                         gradient: Gradient {
                             orientation: Gradient.Horizontal
-                            GradientStop { position: 0; color: root.pink }
-                            GradientStop { position: 0.5; color: root.accent }
-                            GradientStop { position: 1; color: root.otherDisplay }
+                            GradientStop {
+                                position: 0
+                                color: root.pink
+                            }
+                            GradientStop {
+                                position: 0.5
+                                color: root.accent
+                            }
+                            GradientStop {
+                                position: 1
+                                color: root.otherDisplay
+                            }
                         }
 
                         Label {
