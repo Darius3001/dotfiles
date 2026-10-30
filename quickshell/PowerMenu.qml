@@ -10,17 +10,40 @@ PanelWindow {
     property int selectedIndex: 0
     property bool confirming: false
     readonly property var actions: [
-        { label: "Suspend", icon: "󰒲", command: ["systemctl", "suspend"] },
-        { label: "Log out", icon: "󰍃", command: ["hyprshutdown"] },
-        { label: "Restart", icon: "󰜉", command: ["systemctl", "reboot"] },
-        { label: "Shut down", icon: "⏻", command: ["systemctl", "poweroff"] }
+        {
+            label: "Suspend",
+            icon: "󰒲",
+            command: ["systemctl", "suspend"]
+        },
+        {
+            label: "Log out",
+            icon: "󰍃",
+            command: ["hyprshutdown"]
+        },
+        {
+            label: "Restart",
+            icon: "󰜉",
+            command: ["systemctl", "reboot"]
+        },
+        {
+            label: "Shut down",
+            icon: "⏻",
+            command: ["systemctl", "poweroff"]
+        }
     ]
-    signal dismissed()
+    signal dismissed
 
-    function activate(index) {
-        selectedIndex = index;
-        if (index === 0 || confirming) {
-            const command = actions[index].command;
+    function selectNextEntry() {
+        menu.selectedIndex = (menu.selectedIndex + 1) % menu.actions.length;
+    }
+
+    function selectPreviousEntry() {
+        menu.selectedIndex = (menu.selectedIndex + menu.actions.length - 1) % menu.actions.length;
+    }
+
+    function activate() {
+        if (menu.selectedIndex === 0 || confirming) {
+            const command = actions[menu.selectedIndex].command;
             dismissed();
             Quickshell.execDetached(command);
         } else {
@@ -42,7 +65,13 @@ PanelWindow {
             keyboard.forceActiveFocus();
     }
 
-    anchors { top: true; bottom: true; left: true; right: true }
+    anchors {
+        top: true
+        bottom: true
+        left: true
+        right: true
+    }
+
     exclusionMode: ExclusionMode.Ignore
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
@@ -66,11 +95,11 @@ PanelWindow {
         Keys.onEscapePressed: menu.cancel()
         Keys.onPressed: event => {
             if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                menu.activate(menu.selectedIndex);
+                menu.activate();
             } else if (!menu.confirming && (event.key === Qt.Key_Down || event.key === Qt.Key_Tab)) {
-                menu.selectedIndex = (menu.selectedIndex + (event.modifiers & Qt.ShiftModifier ? 3 : 1)) % menu.actions.length;
+                menu.selectNextEntry();
             } else if (!menu.confirming && event.key === Qt.Key_Up) {
-                menu.selectedIndex = (menu.selectedIndex + menu.actions.length - 1) % menu.actions.length;
+                menu.selectPreviousEntry()
             } else {
                 return;
             }
@@ -87,25 +116,28 @@ PanelWindow {
             border.color: menu.theme.accent
 
             // Keep clicks inside the card from dismissing the menu.
-            MouseArea { anchors.fill: parent }
+            MouseArea {
+                anchors.fill: parent
+            }
 
             ColumnLayout {
                 id: content
-                anchors { left: parent.left; right: parent.right; top: parent.top; margins: 20 }
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    top: parent.top
+                    margins: 20
+                }
                 spacing: 10
 
                 Text {
                     text: menu.confirming ? menu.actions[menu.selectedIndex].label + "?" : "Power menu"
                     color: menu.theme.foreground
-                    font { family: menu.theme.fontFamily; pixelSize: 20; bold: true }
-                }
-
-                Text {
-                    Layout.fillWidth: true
-                    text: menu.confirming ? "Confirm to continue." : "↑ / ↓ to select · Enter to continue"
-                    color: menu.theme.muted
-                    font { family: menu.theme.fontFamily; pixelSize: 11 }
-                    wrapMode: Text.WordWrap
+                    font {
+                        family: menu.theme.fontFamily
+                        pixelSize: 20
+                        bold: true
+                    }
                 }
 
                 Repeater {
@@ -120,10 +152,17 @@ PanelWindow {
                         color: menu.selectedIndex === index ? menu.theme.surface : "transparent"
 
                         Text {
-                            anchors { left: parent.left; leftMargin: 14; verticalCenter: parent.verticalCenter }
+                            anchors {
+                                left: parent.left
+                                leftMargin: 14
+                                verticalCenter: parent.verticalCenter
+                            }
                             text: menu.actions[actionButton.index].icon + "   " + menu.actions[actionButton.index].label
                             color: actionButton.index === 3 ? menu.theme.warning : menu.theme.foreground
-                            font { family: menu.theme.fontFamily; pixelSize: 14 }
+                            font {
+                                family: menu.theme.fontFamily
+                                pixelSize: 14
+                            }
                         }
 
                         MouseArea {
@@ -147,7 +186,11 @@ PanelWindow {
                         anchors.centerIn: parent
                         text: "Confirm " + menu.actions[menu.selectedIndex].label.toLowerCase()
                         color: menu.theme.background
-                        font { family: menu.theme.fontFamily; pixelSize: 14; bold: true }
+                        font {
+                            family: menu.theme.fontFamily
+                            pixelSize: 14
+                            bold: true
+                        }
                     }
 
                     MouseArea {
@@ -156,22 +199,6 @@ PanelWindow {
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         onClicked: menu.activate(menu.selectedIndex)
-                    }
-                }
-
-                Text {
-                    Layout.alignment: Qt.AlignHCenter
-                    text: menu.confirming ? "Cancel · Esc" : "Close · Esc"
-                    color: cancelMouse.containsMouse ? menu.theme.foreground : menu.theme.muted
-                    font { family: menu.theme.fontFamily; pixelSize: 12 }
-
-                    MouseArea {
-                        id: cancelMouse
-                        anchors.fill: parent
-                        anchors.margins: -6
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: menu.cancel()
                     }
                 }
             }
