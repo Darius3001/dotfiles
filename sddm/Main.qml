@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import Qt5Compat.GraphicalEffects
 
 Rectangle {
     id: root
@@ -20,6 +21,11 @@ Rectangle {
         sddm.login(username.text.trim(), password.text, session.currentIndex);
     }
 
+    Image {
+        anchors.fill: parent
+        source: "a_street_with_buildings_and_signs.png"
+    }
+
     Connections {
         target: sddm
 
@@ -31,51 +37,66 @@ Rectangle {
         }
     }
 
-    ComboBox {
-        id: session
-        Layout.fillWidth: true
-        model: sessionModel
-        textRole: "name"
-        currentIndex: sessionModel.lastIndex
-
-        anchors {
-            top: parent.top
-            left: parent.left
-        }
-    }
-
     RowLayout {
         Layout.alignment: Qt.AlignHCenter
-        Layout.topMargin: 12
         spacing: 8
         anchors {
             top: parent.top
+            left: parent.left
             right: parent.right
+            leftMargin: 10
+            topMargin: 10
+            rightMargin: 10
+        }
+
+        ComboBox {
+            id: session
+            model: sessionModel
+            textRole: "name"
+            currentIndex: sessionModel.lastIndex
+        }
+
+        Item {
+            Layout.fillWidth: true
         }
 
         Button {
             text: "Suspend"
-            visible: sddm.canSuspend
+            visible: true
             onClicked: sddm.suspend()
         }
 
         Button {
             text: "Restart"
-            visible: sddm.canReboot
+            visible: true
             onClicked: sddm.reboot()
         }
 
         Button {
             text: "Shut down"
-            visible: sddm.canPowerOff
+            visible: true
             onClicked: sddm.powerOff()
         }
     }
+
+    RectangularGlow {
+        anchors.centerIn: input_column
+        height: input_column.height + 64
+        width: input_column.width + 32
+        glowRadius: 1
+        spread: 0.7
+        color: "#99000000"
+        cornerRadius: 8
+    }
+
     ColumnLayout {
+        id: input_column
         anchors.centerIn: parent
         width: Math.min(320, parent.width - 48)
         spacing: 12
         enabled: !root.authenticating
+
+        Item { height: 8 }
 
         Label {
             text: "Sign in"
