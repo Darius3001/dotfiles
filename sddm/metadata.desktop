@@ -1,0 +1,11 @@
+[SddmGreeterTheme]
+Name=Minimal
+Description=Minimal login screen with session and power controls
+Author=Darius
+License=MIT
+Type=sddm-theme
+Version=1.0
+MainScript=Main.qml
+Theme-Id=minimal
+Theme-API=2.0
+QtVersion=6
