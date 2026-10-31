@@ -54,6 +54,7 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("qs --no-duplicate")
   hl.exec_cmd("gsettings set org.gnome.desktop.interface icon-theme 'Tela-circle'")
   hl.exec_cmd("gsettings set org.gnome.desktop.interface font-name 'JetBrainsMono Nerd Font'")
+  hl.exec_cmd('gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"')
 end)
 
 -- Restart Hyprlauncher after a Hyprland reload to reread the toolkit theme.
