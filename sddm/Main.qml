@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import QtQuick.Effects
 import Qt5Compat.GraphicalEffects
 
 Rectangle {
@@ -22,6 +23,7 @@ Rectangle {
     }
 
     Image {
+        id: backgroundImage
         anchors.fill: parent
         source: "a_street_with_buildings_and_signs.png"
     }
@@ -79,14 +81,33 @@ Rectangle {
         }
     }
 
+    ShaderEffectSource {
+        id: effectSource
+        anchors.fill: input_box
+        sourceItem: backgroundImage
+        sourceRect: Qt.rect(input_box.x, input_box.y, input_box.width, input_box.height)
+        visible: false
+    }
+
+    MultiEffect {
+        anchors.fill: effectSource
+        source: effectSource
+        autoPaddingEnabled: false
+        blurEnabled: true
+        blurMax: 32
+        blur: 0.4
+        saturation: 0
+    }
+
     RectangularGlow {
+        id: input_box
         anchors.centerIn: input_column
         height: input_column.height + 64
         width: input_column.width + 32
         glowRadius: 1
         spread: 0.7
-        color: "#99000000"
-        cornerRadius: 8
+        color: "#77000000"
+        cornerRadius: 16
     }
 
     ColumnLayout {
@@ -96,7 +117,9 @@ Rectangle {
         spacing: 12
         enabled: !root.authenticating
 
-        Item { height: 8 }
+        Item {
+            height: 8
+        }
 
         Label {
             text: "Sign in"
