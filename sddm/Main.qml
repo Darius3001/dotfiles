@@ -106,7 +106,7 @@ Rectangle {
         width: input_column.width + 32
         glowRadius: 1
         spread: 0.7
-        color: "#77000000"
+        color: "#aa282A36"
         cornerRadius: 16
     }
 
@@ -147,6 +147,17 @@ Rectangle {
                 else
                     forceActiveFocus();
             }
+            color: "#e1e3eb"
+            placeholderTextColor: "#9399b2"
+            background: Rectangle {
+                color: "#aa212234"
+                border.color: "#212234"
+                radius: 16
+            }
+            leftInset: -6
+            rightInset: -6
+            topInset: -2
+            bottomInset: -2
         }
 
         Label {
@@ -162,6 +173,17 @@ Rectangle {
             selectByMouse: true
             activeFocusOnTab: true
             onAccepted: root.login()
+            color: "#e1e3eb"
+            placeholderTextColor: "#9399b2"
+            background: Rectangle {
+                color: "#aa212234"
+                border.color: "#212234"
+                radius: 16
+            }
+            leftInset: -6
+            rightInset: -6
+            topInset: -2
+            bottomInset: -2
         }
 
         Label {
@@ -178,10 +200,23 @@ Rectangle {
         }
 
         Button {
+            id: login_button
             Layout.fillWidth: true
-            text: root.authenticating ? "Signing in…" : "Sign in"
             enabled: username.text.trim().length > 0 && session.currentIndex >= 0
             onClicked: root.login()
+            contentItem: Label {
+                text: root.authenticating ? "Signing in…" : "Sign in"
+                color: login_button.enabled ? "#212234" : "#9399b2"
+            }
+            background: Rectangle {
+                color: login_button.enabled ? "#aae1e3eb" : "#aa212234"
+                border.color: login_button.enabled ? "#aae1e3eb" : "#aa212234"
+                radius: 16
+            }
+            leftInset: -6
+            rightInset: -6
+            topInset: -2
+            bottomInset: -2
         }
     }
 }
