@@ -106,7 +106,7 @@ hl.config({
         gaps_in  = 5,
         gaps_out = 10,
 
-        border_size = 1,
+        border_size = 0,
 
         col = {
             -- Catppuccin gradient, matching the Quickshell accents.
@@ -128,8 +128,8 @@ hl.config({
         rounding_power = 10,
 
         -- Change transparency of focused and unfocused windows
-        active_opacity   = 1.0,
-        inactive_opacity = 1.0,
+        active_opacity   = 1,
+        inactive_opacity = 0.92,
 
         shadow = {
             enabled      = true,
@@ -140,8 +140,8 @@ hl.config({
 
         blur = {
             enabled   = true,
-            size      = 3,
-            passes    = 1,
+            size      = 10,
+            passes    = 2,
             vibrancy  = 0.1696,
         },
     },
