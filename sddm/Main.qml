@@ -202,15 +202,16 @@ Rectangle {
         Button {
             id: login_button
             Layout.fillWidth: true
-            enabled: username.text.trim().length > 0 && session.currentIndex >= 0
+            // passwordless users dont work lol
+            enabled: username.text.trim().length > 0 && session.currentIndex >= 0 && password.text.length > 0
             onClicked: root.login()
             contentItem: Label {
                 text: root.authenticating ? "Signing in…" : "Sign in"
                 color: login_button.enabled ? "#212234" : "#9399b2"
             }
             background: Rectangle {
-                color: login_button.enabled ? "#aae1e3eb" : "#aa212234"
-                border.color: login_button.enabled ? "#aae1e3eb" : "#aa212234"
+                color: login_button.enabled ? "#e1e3eb" : "#aa212234"
+                border.color: login_button.enabled ? "#e1e3eb" : "#aa212234"
                 radius: 16
             }
             leftInset: -6
