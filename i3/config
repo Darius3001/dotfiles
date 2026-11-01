@@ -22,8 +22,7 @@ font pango:monospace 8
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
-
-exec --no-startup-id nitrogen --restore
+exec --no-startup-id xwallpaper --zoom /home/darius/Pictures/Hyprpaper/a_train_crossing_a_bridge_over_a_bridge_with_mountains_in_the_background.png
 
 exec_always --no-startup-id dunst
 
