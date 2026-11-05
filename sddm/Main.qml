@@ -87,16 +87,29 @@ Rectangle {
         sourceItem: backgroundImage
         sourceRect: Qt.rect(input_box.x, input_box.y, input_box.width, input_box.height)
         visible: false
+        
     }
 
-    MultiEffect {
+    FastBlur {
+        id: blurredBackground
         anchors.fill: effectSource
         source: effectSource
-        autoPaddingEnabled: false
-        blurEnabled: true
-        blurMax: 32
-        blur: 0.4
-        saturation: 0
+        radius: 50
+        visible: false
+    }
+
+    Rectangle {
+        id: roundedMask
+        anchors.fill: effectSource
+        radius: input_box.cornerRadius
+        color: "white"
+        visible: false
+    }
+
+    OpacityMask {
+        anchors.fill: effectSource
+        source: blurredBackground
+        maskSource: roundedMask
     }
 
     RectangularGlow {
