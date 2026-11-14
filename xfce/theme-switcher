@@ -1,0 +1,166 @@
+#!/usr/bin/env python3
+"""Apply XFCE theme presets using xfconf-query (Python standard library only)."""
+
+import argparse
+import configparser
+import os
+import pathlib
+import shlex
+import shutil
+import subprocess
+import sys
+
+
+PRESET_DIR = pathlib.Path(__file__).resolve().parent / "themes"
+# section/key -> (xfconf channel, property, type)
+SETTINGS = {
+    "appearance": {
+        "gtk_theme": ("xsettings", "/Net/ThemeName", "string"),
+        "icon_theme": ("xsettings", "/Net/IconThemeName", "string"),
+        "cursor_theme": ("xsettings", "/Gtk/CursorThemeName", "string"),
+        "cursor_size": ("xsettings", "/Gtk/CursorThemeSize", "int"),
+        "font": ("xsettings", "/Gtk/FontName", "string"),
+        "monospace_font": ("xsettings", "/Gtk/MonospaceFontName", "string"),
+        "prefer_dark": ("xsettings", "/Gtk/ApplicationPreferDarkTheme", "bool"),
+    },
+    "window_manager": {
+        "theme": ("xfwm4", "/general/theme", "string"),
+        "title_font": ("xfwm4", "/general/title_font", "string"),
+        "button_layout": ("xfwm4", "/general/button_layout", "string"),
+    },
+    "notifications": {
+        "theme": ("xfce4-notifyd", "/theme", "string"),
+    },
+}
+
+
+def load_preset(path):
+    config = configparser.ConfigParser(interpolation=None)
+    with path.open(encoding="utf-8") as source:
+        config.read_file(source)
+    if config.defaults():
+        raise ValueError("[DEFAULT] is not supported; put settings in named sections")
+
+    changes = []
+    panel_theme = None
+    for section in config.sections():
+        if section == "panel":
+            if set(config[section]) != {"theme"}:
+                raise ValueError("[panel] requires only a theme setting")
+            panel_theme = config.get(section, "theme").strip()
+            if not panel_theme or panel_theme in (".", "..") or "/" in panel_theme or "\\" in panel_theme:
+                raise ValueError("[panel] theme must be a profile name, not a path")
+            continue
+        if section not in SETTINGS:
+            raise ValueError(f"unknown section [{section}]")
+        for key, value in config.items(section):
+            if key not in SETTINGS[section]:
+                raise ValueError(f"unknown setting [{section}] {key}")
+            channel, prop, kind = SETTINGS[section][key]
+            value = value.strip()
+            if not value and key != "cursor_theme":
+                raise ValueError(f"[{section}] {key} must not be empty")
+            if kind == "int":
+                value = str(config.getint(section, key))
+                if int(value) < 0:
+                    raise ValueError(f"[{section}] {key} must be nonnegative")
+            elif kind == "bool":
+                value = str(config.getboolean(section, key)).lower()
+            changes.append((channel, prop, kind, value))
+    if not changes and panel_theme is None:
+        raise ValueError("preset contains no settings")
+    return changes, panel_theme
+
+
+def panel_command(theme):
+    user_data = pathlib.Path(os.environ.get("XDG_DATA_HOME") or pathlib.Path.home() / ".local/share")
+    system_data = os.environ.get("XDG_DATA_DIRS") or "/usr/local/share:/usr/share"
+    directories = [user_data / "xfce4-panel-profiles"]
+    directories += [pathlib.Path(root) / "xfce4-panel-profiles/layouts"
+                    for root in system_data.split(":") if root]
+    for directory in directories:
+        archive = directory / f"{theme}.tar.bz2"
+        if archive.is_file():
+            return ["xfce4-panel-profiles", "load", str(archive)]
+    raise ValueError(f"panel profile not found: {theme}; save it in XFCE Panel Profiles first")
+
+
+def command_for(change, create=False):
+    channel, prop, kind, value = change
+    command = ["xfconf-query", "--channel", channel, "--property", prop]
+    if create:
+        command += ["--create", "--type", kind]
+    return command + ["--set", value]
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--config-dir", type=pathlib.Path, default=PRESET_DIR,
+        help="preset directory (default: themes/ beside the script)",
+    )
+    actions = parser.add_subparsers(dest="action", required=True)
+    actions.add_parser("list", help="list available presets")
+    show = actions.add_parser("show", help="show a preset's configuration")
+    show.add_argument("name", help="preset name, without .conf")
+    apply = actions.add_parser("apply", help="apply a preset to the current XFCE session")
+    apply.add_argument("name", help="preset name, without .conf")
+    apply.add_argument("--dry-run", action="store_true", help="print commands without changing anything")
+    args = parser.parse_args()
+
+    try:
+        directory = args.config_dir.expanduser()
+        if not directory.is_dir():
+            raise ValueError(f"preset directory does not exist: {directory}")
+        if args.action == "list":
+            for path in sorted(directory.glob("*.conf")):
+                if path.is_file():
+                    print(path.stem)
+            return 0
+        if not args.name or args.name in (".", "..") or "/" in args.name or "\\" in args.name:
+            raise ValueError("use a preset name, not a path")
+        path = directory / f"{args.name}.conf"
+        changes, panel_theme = load_preset(path)
+        if args.action == "show":
+            print(path.read_text(encoding="utf-8"), end="")
+            return 0
+        panel = panel_command(panel_theme) if panel_theme is not None else None
+        if args.dry_run:
+            for change in changes:
+                print(shlex.join(command_for(change, create=True)))
+            if panel:
+                print(shlex.join(panel))
+            return 0
+        if panel and not shutil.which("xfce4-panel-profiles"):
+            raise ValueError("xfce4-panel-profiles is missing; install XFCE Panel Profiles")
+        if changes and not shutil.which("xfconf-query"):
+            raise ValueError("xfconf-query is missing; install XFCE's xfconf package")
+        for change in changes:
+            channel, prop, _, _ = change
+            exists = subprocess.run(
+                ["xfconf-query", "--channel", channel, "--property", prop],
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            ).returncode == 0
+            result = subprocess.run(command_for(change, create=not exists), capture_output=True, text=True)
+            if result.returncode:
+                detail = result.stderr.strip() or result.stdout.strip() or "unknown error"
+                raise ValueError(
+                    f"could not set {channel}:{prop}: {detail}\n"
+                    "Run inside your XFCE session. Earlier settings may already have been applied."
+                )
+        if panel:
+            result = subprocess.run(panel, capture_output=True, text=True)
+            if result.returncode:
+                detail = result.stderr.strip() or result.stdout.strip() or "unknown error"
+                raise ValueError(f"could not load panel profile {panel_theme}: {detail}\n"
+                                 "Appearance settings have already been applied; the panel may be partially changed.")
+        print(f"Applied {args.name} ({len(changes)} settings"
+              f"{', panel: ' + panel_theme if panel_theme else ''}).")
+        return 0
+    except (OSError, ValueError, configparser.Error) as error:
+        print(f"theme-switcher: {error}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
