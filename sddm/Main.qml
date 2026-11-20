@@ -63,21 +63,42 @@ Rectangle {
         }
 
         Button {
-            text: "Suspend"
+            id: suspendButton
             visible: true
             onClicked: sddm.suspend()
+            background: Rectangle {
+                color: suspendButton.hovered ? "#414244" : "#aa212234" 
+                border.color: "#e1e2e4"
+                radius: 16
+            }
+            palette.buttonText: "#e1e2e4"
+            icon.source: "sleep.svg"
         }
 
         Button {
-            text: "Restart"
+            id: rebootButton
             visible: true
             onClicked: sddm.reboot()
+            background: Rectangle {
+                color: rebootButton.hovered ? "#414244" : "#aa212234" 
+                border.color: "#e1e2e4"
+                radius: 16
+            }
+            palette.buttonText: "#e1e2e4"
+            icon.source: "restart.svg"
         }
 
         Button {
-            text: "Shut down"
+            id: poweroffButton
             visible: true
             onClicked: sddm.powerOff()
+            background: Rectangle {
+                color: poweroffButton.hovered ? "#414244" : "#aa212234" 
+                border.color: "#e1e2e4"
+                radius: 16
+            }
+            palette.buttonText: "#e1e2e4"
+            icon.source: "power.svg"
         }
     }
 
