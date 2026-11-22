@@ -56,6 +56,17 @@ Rectangle {
             model: sessionModel
             textRole: "name"
             currentIndex: sessionModel.lastIndex
+            Layout.preferredWidth: 160
+            palette {
+                button: "#212234"
+                buttonText: "#e1e3eb"
+                base: "#212234"
+                text: "#e1e3eb"
+                window: "#212234"
+                windowText: "#e1e3eb"
+                highlight: "#414244"
+                highlightedText: "#ffffff"
+            }
         }
 
         Item {
@@ -67,7 +78,7 @@ Rectangle {
             visible: true
             onClicked: sddm.suspend()
             background: Rectangle {
-                color: suspendButton.hovered ? "#414244" : "#aa212234" 
+                color: suspendButton.hovered ? "#414244" : "#aa212234"
                 border.color: "#e1e2e4"
                 radius: 16
             }
@@ -80,7 +91,7 @@ Rectangle {
             visible: true
             onClicked: sddm.reboot()
             background: Rectangle {
-                color: rebootButton.hovered ? "#414244" : "#aa212234" 
+                color: rebootButton.hovered ? "#414244" : "#aa212234"
                 border.color: "#e1e2e4"
                 radius: 16
             }
@@ -93,7 +104,7 @@ Rectangle {
             visible: true
             onClicked: sddm.powerOff()
             background: Rectangle {
-                color: poweroffButton.hovered ? "#414244" : "#aa212234" 
+                color: poweroffButton.hovered ? "#414244" : "#aa212234"
                 border.color: "#e1e2e4"
                 radius: 16
             }
@@ -108,7 +119,6 @@ Rectangle {
         sourceItem: backgroundImage
         sourceRect: Qt.rect(input_box.x, input_box.y, input_box.width, input_box.height)
         visible: false
-        
     }
 
     FastBlur {
